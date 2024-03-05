@@ -22,7 +22,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ThemeService>(
       builder: (BuildContext context, ThemeService value, Widget? child) {
-        return Consumer<ThemeService>(builder: (BuildContext context, ThemeService themeService, Widget? child) {
+        return Consumer<ThemeService>(builder:
+            (BuildContext context, ThemeService themeService, Widget? child) {
           return MaterialApp(
             title: 'Nike Online Shop',
             debugShowCheckedModeBanner: false,

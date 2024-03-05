@@ -21,11 +21,15 @@ class AppTheme {
     color: _lightPrimaryColor,
   );
 
-  static final TextStyle _lightDisplayLarge = defaultTextStyle.copyWith(fontWeight: FontWeight.bold);
+  static final TextStyle _lightDisplayLarge =
+      defaultTextStyle.copyWith(fontWeight: FontWeight.bold);
   static final TextStyle _lightBodyLarge = defaultTextStyle.copyWith();
   static final TextStyle _lightBodySmall = defaultTextStyle.copyWith();
 
-  static final TextTheme _lightTextTheme = TextTheme(displayLarge: _lightDisplayLarge, bodyLarge: _lightBodyLarge, bodySmall: _lightBodySmall);
+  static final TextTheme _lightTextTheme = TextTheme(
+      displayLarge: _lightDisplayLarge,
+      bodyLarge: _lightBodyLarge,
+      bodySmall: _lightBodySmall);
 
 // ******************
 // Icon Colors
@@ -54,29 +58,27 @@ class AppTheme {
   //static ThemeData darkTheme = ThemeData();
 }
 
-
-
 // ******************
 // Dark Theme Colors
 // ******************
 
-  // static final Color _darkPrimaryColor = Colors.blueGrey.shade900;
-  // static const Color _darkPrimaryVariantColor = Colors.black;
-  // static final Color _darkOnPrimaryColor = Colors.blueGrey.shade300;
-  // static const Color _darkTextColorPrimary = Colors.white;
-  // static final Color _appbarColorDark = Colors.blueGrey.shade800;
+// static final Color _darkPrimaryColor = Colors.blueGrey.shade900;
+// static const Color _darkPrimaryVariantColor = Colors.black;
+// static final Color _darkOnPrimaryColor = Colors.blueGrey.shade300;
+// static const Color _darkTextColorPrimary = Colors.white;
+// static final Color _appbarColorDark = Colors.blueGrey.shade800;
 
 // ******************
 // Dark Theme Fonts
 // ******************
 
-  // static final TextStyle _darkThemeHeadingTextStyle =
-  //     _lightHeadingText.copyWith(color: _darkTextColorPrimary);
+// static final TextStyle _darkThemeHeadingTextStyle =
+//     _lightHeadingText.copyWith(color: _darkTextColorPrimary);
 
-  // static final TextStyle _darkThemeBodyeTextStyle =
-  //     _lightBodyText.copyWith(color: _darkTextColorPrimary);
+// static final TextStyle _darkThemeBodyeTextStyle =
+//     _lightBodyText.copyWith(color: _darkTextColorPrimary);
 
-  // static final TextTheme _darkTextTheme = TextTheme(
-  //   headline1: _darkThemeHeadingTextStyle,
-  //   bodyText1: _darkThemeBodyeTextStyle,
-  // );
+// static final TextTheme _darkTextTheme = TextTheme(
+//   headline1: _darkThemeHeadingTextStyle,
+//   bodyText1: _darkThemeBodyeTextStyle,
+// );
