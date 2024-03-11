@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:nike/config/theme.dart';
-import 'package:nike/features/feature_product/presentation/screens/home_screen.dart';
+import 'package:nike/di.dart';
+import 'package:nike/features/feature_home/presentation/screens/home_screen.dart';
 import 'package:nike/services/theme_service.dart';
-
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  await initializeDependencies();
+
   runApp(ChangeNotifierProvider(
     create: (context) {
       return ThemeService();
@@ -22,8 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ThemeService>(
       builder: (BuildContext context, ThemeService value, Widget? child) {
-        return Consumer<ThemeService>(builder:
-            (BuildContext context, ThemeService themeService, Widget? child) {
+        return Consumer<ThemeService>(builder: (BuildContext context, ThemeService themeService, Widget? child) {
           return MaterialApp(
             title: 'Nike Online Shop',
             debugShowCheckedModeBanner: false,

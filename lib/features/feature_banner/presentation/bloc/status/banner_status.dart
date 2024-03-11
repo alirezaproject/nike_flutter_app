@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nike/features/feature_product/domain/entities/banner_entity.dart';
+import 'package:nike/features/feature_banner/domain/entities/banner_entity.dart';
 
 @immutable
 abstract class BannerStatus {}

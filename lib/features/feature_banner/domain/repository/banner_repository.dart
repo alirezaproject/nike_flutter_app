@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:nike/core/resources/data_state.dart';
-import 'package:nike/features/feature_product/domain/entities/banner_entity.dart';
+import 'package:nike/features/feature_banner/domain/entities/banner_entity.dart';
 
-abstract class BannerRepo {
+abstract class IBannerRepository {
   Future<DataState<List<BannerEntity>>> fetchBannerListData();
 }

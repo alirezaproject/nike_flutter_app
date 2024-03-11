@@ -1,6 +1,6 @@
 class BannerEntity {
-  int? id;
-  String? image;
+  final int? id;
+  final String? image;
 
   BannerEntity({
     this.id,
