@@ -18,18 +18,28 @@ class AppTheme {
 
   static const defaultTextStyle = TextStyle(
     fontFamily: 'IranYekan',
-    color: _lightPrimaryColor,
+    color: _lightPrimaryTextColor,
   );
 
-  static final TextStyle _lightDisplayLarge =
-      defaultTextStyle.copyWith(fontWeight: FontWeight.bold);
+  static final TextStyle _lightDisplayLarge = defaultTextStyle.copyWith(fontWeight: FontWeight.bold);
+
+  static final TextStyle _lightTitleMedium = defaultTextStyle.copyWith(color: _lightSecondaryTextColor);
+
   static final TextStyle _lightBodyLarge = defaultTextStyle.copyWith();
-  static final TextStyle _lightBodySmall = defaultTextStyle.copyWith();
+  static final TextStyle _lightBodyMedium = defaultTextStyle.copyWith();
+  static final TextStyle _lightBodySmall = defaultTextStyle.copyWith(color: _lightSecondaryTextColor);
+
+  static final TextStyle _lightLabelSmall = defaultTextStyle.copyWith();
+  static final TextStyle _lightLabelMedium = defaultTextStyle.copyWith(color: _lightPrimaryColor);
 
   static final TextTheme _lightTextTheme = TextTheme(
       displayLarge: _lightDisplayLarge,
+      titleMedium: _lightTitleMedium,
       bodyLarge: _lightBodyLarge,
-      bodySmall: _lightBodySmall);
+      bodyMedium: _lightBodyMedium,
+      bodySmall: _lightBodySmall,
+      labelSmall: _lightLabelSmall,
+      labelMedium: _lightLabelMedium);
 
 // ******************
 // Icon Colors

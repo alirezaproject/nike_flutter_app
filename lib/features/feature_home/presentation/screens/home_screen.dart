@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nike/core/utils/constants.dart';
+import 'package:nike/core/widgets/product/horizontal_product_list.dart';
 import 'package:nike/di.dart';
 import 'package:nike/features/feature_home/presentation/bloc/home_bloc.dart';
+import 'package:nike/features/feature_home/presentation/widgets/app_bar.dart';
+import 'package:nike/features/feature_home/presentation/widgets/banner_slider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return BlocProvider(
       create: (context) {
         final homeBloc = di<HomeBloc>();
@@ -22,15 +26,11 @@ class HomeScreen extends StatelessWidget {
               if (state is HomeCompleted) {
                 return ListView.builder(
                   itemCount: 5,
-                  padding: const EdgeInsets.fromLTRB(12, 12, 12, 100),
                   itemBuilder: (BuildContext context, int index) {
                     switch (index) {
                       case 0:
                         {
-                          return Image.asset(
-                            '${Constants.baseImageLocation}nike_logo.png',
-                            height: 35,
-                          );
+                          return NikeAppBar();
                         }
                       case 1:
                         {
@@ -38,15 +38,25 @@ class HomeScreen extends StatelessWidget {
                         }
                       case 2:
                         {
-                          return Container();
+                          return BannerSlider(
+                            banners: state.banners,
+                          );
                         }
                       case 3:
                         {
-                          return Container();
+                          return HorizontalProductList(
+                            title: 'جدید ترین',
+                            onTap: () {},
+                            products: state.latestProducts,
+                          );
                         }
                       case 4:
                         {
-                          return Container();
+                          return HorizontalProductList(
+                            title: 'پربازدید ترین',
+                            onTap: () {},
+                            products: state.popularProducts,
+                          );
                         }
 
                       default:
