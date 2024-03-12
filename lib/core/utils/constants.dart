@@ -7,7 +7,7 @@ class Constants {
 
   static const String defaultTextStyle = 'IranYekan';
 
-  static const String defaultErrorMessage = "خطای نامشخص";
+  static const String defaultErrorMessage = "خطا !";
 
   static const String noConnectionErrorMessage = "خطا ! لطفا اینترنت خود را بررسی نمایید";
 }

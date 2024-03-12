@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nike/core/widgets/product/horizontal_product_list.dart';
+import 'package:nike/core/utils/constants.dart';
+import 'package:nike/core/widgets/app_error_widget.dart';
+import 'package:nike/features/feature_home/presentation/widgets/horizontal_product_list.dart';
 import 'package:nike/di.dart';
 import 'package:nike/features/feature_home/presentation/bloc/home_bloc.dart';
 import 'package:nike/features/feature_home/presentation/widgets/app_bar.dart';
@@ -11,8 +13,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return BlocProvider(
       create: (context) {
         final homeBloc = di<HomeBloc>();
@@ -25,6 +25,7 @@ class HomeScreen extends StatelessWidget {
             builder: (context, state) {
               if (state is HomeCompleted) {
                 return ListView.builder(
+                  physics: Constants.defaultScrollPhysics,
                   itemCount: 5,
                   itemBuilder: (BuildContext context, int index) {
                     switch (index) {
@@ -72,20 +73,9 @@ class HomeScreen extends StatelessWidget {
                 );
               }
               if (state is HomeError) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(state.exception.message),
-                      ElevatedButton(
-                        onPressed: () {
-                          BlocProvider.of<HomeBloc>(context).add(RefreshHomeEvent());
-                        },
-                        child: Text('تلاش مجدد'),
-                      ),
-                    ],
-                  ),
+                return AppErrorWidget(
+                  exception: state.exception,
+                  onTap: () => BlocProvider.of<HomeBloc>(context).add(RefreshHomeEvent()),
                 );
               }
               return SizedBox();

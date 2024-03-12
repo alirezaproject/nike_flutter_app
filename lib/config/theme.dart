@@ -23,6 +23,7 @@ class AppTheme {
 
   static final TextStyle _lightDisplayLarge = defaultTextStyle.copyWith(fontWeight: FontWeight.bold);
 
+  static final TextStyle _lightTitleLarge = defaultTextStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 18);
   static final TextStyle _lightTitleMedium = defaultTextStyle.copyWith(color: _lightSecondaryTextColor);
 
   static final TextStyle _lightBodyLarge = defaultTextStyle.copyWith();
@@ -33,13 +34,15 @@ class AppTheme {
   static final TextStyle _lightLabelMedium = defaultTextStyle.copyWith(color: _lightPrimaryColor);
 
   static final TextTheme _lightTextTheme = TextTheme(
-      displayLarge: _lightDisplayLarge,
-      titleMedium: _lightTitleMedium,
-      bodyLarge: _lightBodyLarge,
-      bodyMedium: _lightBodyMedium,
-      bodySmall: _lightBodySmall,
-      labelSmall: _lightLabelSmall,
-      labelMedium: _lightLabelMedium);
+    displayLarge: _lightDisplayLarge,
+    titleLarge: _lightTitleLarge,
+    titleMedium: _lightTitleMedium,
+    bodyLarge: _lightBodyLarge,
+    bodyMedium: _lightBodyMedium,
+    bodySmall: _lightBodySmall,
+    labelSmall: _lightLabelSmall,
+    labelMedium: _lightLabelMedium,
+  );
 
 // ******************
 // Icon Colors
@@ -55,6 +58,7 @@ class AppTheme {
 
   static final ThemeData lightTheme = ThemeData(
       fontFamily: Constants.defaultTextStyle,
+      dividerColor: _lightSecondaryColor,
       scaffoldBackgroundColor: Colors.white,
       colorScheme: ColorScheme.light(
         primary: _lightPrimaryColor,
