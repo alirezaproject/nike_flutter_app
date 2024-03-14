@@ -7,17 +7,15 @@ abstract class CommentState extends Equatable {
   List<Object> get props => [];
 }
 
-class CommentStarted extends CommentState {}
-
 class CommentLoading extends CommentState {}
 
 class CommentError extends CommentState {
-  final AppException exception;
+  final String message;
 
-  const CommentError({required this.exception});
+  const CommentError({required this.message});
 
   @override
-  List<Object> get props => [exception];
+  List<Object> get props => [message];
 }
 
 class CommentCompleted extends CommentState {

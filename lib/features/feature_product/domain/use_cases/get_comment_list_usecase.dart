@@ -7,5 +7,6 @@ class GetCommentListUsecase extends UseCase<List<CommentEntity>, int> {
 
   GetCommentListUsecase(this._commentRepository);
   @override
-  Future<List<CommentEntity>> call(int params) async => await _commentRepository.fetchComments(params);
+  Future<List<CommentEntity>> call(int params) async =>
+      await _commentRepository.fetchComments(params);
 }

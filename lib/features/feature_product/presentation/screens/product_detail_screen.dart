@@ -32,7 +32,8 @@ class ProductDetailScreen extends StatelessWidget {
           slivers: [
             SliverAppBar(
               expandedHeight: MediaQuery.of(context).size.width * 0.8,
-              flexibleSpace: LoadImage(image: product.image!, borderRadius: BorderRadius.zero),
+              flexibleSpace: LoadImage(
+                  image: product.image!, borderRadius: BorderRadius.zero),
               actions: [
                 IconButton(
                   onPressed: () {},

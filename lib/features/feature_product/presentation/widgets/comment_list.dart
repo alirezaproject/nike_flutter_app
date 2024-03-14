@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nike/core/utils/error_handler.dart';
 import 'package:nike/core/widgets/app_error_widget.dart';
 import 'package:nike/di.dart';
-import 'package:nike/features/feature_product/presentation/bloc/bloc/comment_bloc.dart';
+import 'package:nike/features/feature_product/presentation/bloc/comment_bloc.dart';
 import 'package:nike/features/feature_product/presentation/widgets/comment_item.dart';
 
 class CommentList extends StatelessWidget {
@@ -27,16 +28,11 @@ class CommentList extends StatelessWidget {
                 );
               }, childCount: state.comments.length),
             );
-          } else if (state is CommentLoading) {
-            return SliverToBoxAdapter(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          } else if (state is CommentError) {
+          }
+          if (state is CommentError) {
             return SliverToBoxAdapter(
               child: AppErrorWidget(
-                exception: state.exception,
+                exception: AppException(),
                 onTap: () => BlocProvider.of<CommentBloc>(context).add(
                   LoadCommentEvent(
                     productId: productId,
@@ -45,7 +41,14 @@ class CommentList extends StatelessWidget {
               ),
             );
           }
-          return SliverToBoxAdapter(child: Container());
+          if (state is CommentLoading) {
+            return SliverToBoxAdapter(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+          return SizedBox();
         },
       ),
     );
