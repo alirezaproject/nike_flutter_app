@@ -4,7 +4,8 @@ import 'package:nike/features/feature_auth/data/models/auth_model.dart';
 abstract class IAuthRepository {
   Future<AuthModel> login(AuthParams params);
   Future<AuthModel> register(AuthParams params);
-  Future<AuthModel> refreshToken();
+  Future<void> refreshToken();
+  Future<void> signOut();
 
   Future getAuthToken();
 }

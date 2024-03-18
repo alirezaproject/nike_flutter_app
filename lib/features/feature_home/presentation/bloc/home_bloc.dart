@@ -19,7 +19,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       if (event is LoadHomeEvent || event is RefreshHomeEvent) {
         try {
           emit(HomeLoading());
-          final banners = await _getBannerUseCase(NoParams());
+          final banners = await _getBannerUseCase();
           final latestProducts =
               await _getProductListUseCase(ProductSort.latest);
           final popularProducts =

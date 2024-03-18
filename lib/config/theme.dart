@@ -57,6 +57,9 @@ class AppTheme {
 // ******************
 
   static final ThemeData lightTheme = ThemeData(
+      snackBarTheme: SnackBarThemeData(
+        contentTextStyle: defaultTextStyle.copyWith(color: Colors.white),
+      ),
       fontFamily: Constants.defaultTextStyle,
       dividerColor: _lightSecondaryColor,
       scaffoldBackgroundColor: Colors.white,
@@ -64,6 +67,7 @@ class AppTheme {
         primary: _lightPrimaryColor,
         onPrimary: _lightPrimaryColor,
         secondary: _lightSecondaryColor,
+        onSecondary: _lightSecondaryTextColor,
         primaryContainer: _lightSecondaryColor,
         onPrimaryContainer: _lightPrimaryColor,
       ),

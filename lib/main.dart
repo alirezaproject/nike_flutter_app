@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:nike/config/theme.dart';
-import 'package:nike/di.dart';
+import 'package:nike/core/widgets/root.dart';
+import 'package:nike/service_locator.dart';
 import 'package:nike/features/feature_auth/domain/repository/auth_repository.dart';
-import 'package:nike/features/feature_auth/presentation/screens/auth_screen.dart';
 import 'package:nike/services/theme_service.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
-  final IAuthRepository authRepository = di<IAuthRepository>();
+  final IAuthRepository authRepository = sl<IAuthRepository>();
   authRepository.getAuthToken();
   runApp(ChangeNotifierProvider(
     create: (context) {
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             home: Directionality(
               textDirection: TextDirection.rtl,
-              child: AuthScreen(),
+              child: RootScreen(),
             ),
           );
         });

@@ -2,4 +2,6 @@ abstract class UseCase<T, P> {
   Future<T> call(P params);
 }
 
-class NoParams {}
+abstract class UseCaseWithoutParams<T> {
+  Future<T> call();
+}

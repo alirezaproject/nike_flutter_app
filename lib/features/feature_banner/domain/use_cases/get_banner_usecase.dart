@@ -4,13 +4,13 @@ import 'package:nike/features/feature_banner/domain/entities/banner_entity.dart'
 import 'package:nike/features/feature_banner/domain/repository/banner_repository.dart';
 
 class GetBannerUseCase
-    extends UseCase<DataState<List<BannerEntity>>, NoParams> {
+    extends UseCaseWithoutParams<DataState<List<BannerEntity>>> {
   final IBannerRepository bannerRepo;
 
   GetBannerUseCase(this.bannerRepo);
 
   @override
-  Future<DataState<List<BannerEntity>>> call(NoParams params) {
+  Future<DataState<List<BannerEntity>>> call() {
     return bannerRepo.fetchBannerListData();
   }
 }
