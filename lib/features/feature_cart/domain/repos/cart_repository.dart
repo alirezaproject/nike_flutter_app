@@ -6,5 +6,5 @@ abstract class ICartRepository {
   Future<CartResponseEntity> changeCount(int cartItemId, int count);
   Future delete(int cartItemId);
   Future<int> count();
-  Future<List<CartEntity>> list();
+  Future<CartEntity> list();
 }

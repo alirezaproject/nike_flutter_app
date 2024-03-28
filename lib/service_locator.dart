@@ -15,6 +15,8 @@ import 'package:nike/features/feature_cart/data/repos/cart_repository.dart';
 import 'package:nike/features/feature_cart/data/source/remote/cart_api_service.dart';
 import 'package:nike/features/feature_cart/domain/repos/cart_repository.dart';
 import 'package:nike/features/feature_cart/domain/usecases/add_to_cart_usecase.dart';
+import 'package:nike/features/feature_cart/domain/usecases/get_cart_list_usecase.dart';
+import 'package:nike/features/feature_cart/presentation/bloc/cart_bloc.dart';
 import 'package:nike/features/feature_home/presentation/bloc/home_bloc.dart';
 import 'package:nike/features/feature_product/data/data_source/remote/comment_api_service.dart';
 import 'package:nike/features/feature_product/data/data_source/remote/product_api_service.dart';
@@ -54,10 +56,12 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<RegisterUserUseCase>(() => RegisterUserUseCase(sl()));
   sl.registerLazySingleton<LoginUserUseCase>(() => LoginUserUseCase(sl()));
   sl.registerLazySingleton<AddToCartUseCase>(() => AddToCartUseCase(sl()));
+  sl.registerLazySingleton<GetCartListUseCase>(() => GetCartListUseCase(sl()));
 
   // bloc
   sl.registerFactory<HomeBloc>(() => HomeBloc(sl(), sl()));
   sl.registerFactory<CommentBloc>(() => CommentBloc(sl()));
   sl.registerFactory<AuthBloc>(() => AuthBloc(true, sl(), sl()));
   sl.registerFactory<ProductBloc>(() => ProductBloc(sl()));
+  sl.registerFactory<CartBloc>(() => CartBloc(sl()));
 }

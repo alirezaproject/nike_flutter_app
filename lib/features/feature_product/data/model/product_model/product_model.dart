@@ -34,7 +34,7 @@ class ProductModel extends ProductEntity {
         discount: json['discount'] as int?,
         image: json['image'] as String?,
         status: json['status'] as int?,
-        previousPrice: json['previous_price'] as int?,
+        previousPrice: json['previous_price'] as int? ?? json['price'] + json['discount'],
       );
 
   Map<String, dynamic> toJson() => {

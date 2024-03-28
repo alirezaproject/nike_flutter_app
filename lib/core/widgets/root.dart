@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:nike/features/feature_auth/domain/usecases/signout_user_usecase.dart';
 import 'package:nike/features/feature_cart/presentation/screens/cart_screen.dart';
 import 'package:nike/features/feature_home/presentation/screens/home_screen.dart';
+import 'package:nike/service_locator.dart';
 
 const int homeIndex = 0;
 const int cartIndex = 1;
@@ -15,6 +18,7 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> {
+  final SignOutUserUseCase _signOutUserUseCase = sl();
   int selectedScreenIndex = homeIndex;
   final List<int> _history = [];
 
@@ -29,8 +33,7 @@ class _RootScreenState extends State<RootScreen> {
   };
 
   Future<bool> _onWillPop() async {
-    final NavigatorState currentSelectedTabNavigatorState =
-        map[selectedScreenIndex]!.currentState!;
+    final NavigatorState currentSelectedTabNavigatorState = map[selectedScreenIndex]!.currentState!;
     if (currentSelectedTabNavigatorState.canPop()) {
       currentSelectedTabNavigatorState.pop();
       return false;
@@ -59,19 +62,25 @@ class _RootScreenState extends State<RootScreen> {
             _navigator(
                 _profileKey,
                 profileIndex,
-                const Center(
-                  child: Text('Profile'),
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Profile'),
+                      ElevatedButton(
+                        onPressed: () async => await _signOutUserUseCase(),
+                        child: Text('خروج از حساب کاربری'),
+                      ),
+                    ],
+                  ),
                 )),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: const [
-            BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.home), label: 'خانه'),
-            BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.cart), label: 'سبد خرید'),
-            BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.person), label: 'پروفایل'),
+            BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: 'خانه'),
+            BottomNavigationBarItem(icon: Icon(CupertinoIcons.cart), label: 'سبد خرید'),
+            BottomNavigationBarItem(icon: Icon(CupertinoIcons.person), label: 'پروفایل'),
           ],
           currentIndex: selectedScreenIndex,
           onTap: (selectedIndex) {
@@ -91,8 +100,6 @@ class _RootScreenState extends State<RootScreen> {
         ? Container()
         : Navigator(
             key: key,
-            onGenerateRoute: (settings) => MaterialPageRoute(
-                builder: (context) => Offstage(
-                    offstage: selectedScreenIndex != index, child: child)));
+            onGenerateRoute: (settings) => MaterialPageRoute(builder: (context) => Offstage(offstage: selectedScreenIndex != index, child: child)));
   }
 }
