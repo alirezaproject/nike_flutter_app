@@ -1,12 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nike/core/extensions/price_label.dart';
-import 'package:nike/core/widgets/image.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nike/core/utils/constants.dart';
+import 'package:nike/core/widgets/empty_state.dart';
 import 'package:nike/features/feature_auth/data/repository/auth_repository.dart';
 import 'package:nike/features/feature_auth/presentation/screens/auth_screen.dart';
 import 'package:nike/features/feature_cart/presentation/bloc/cart_bloc.dart';
+import 'package:nike/features/feature_cart/presentation/widgets/cart_item.dart';
 import 'package:nike/service_locator.dart';
 
 class CartScreen extends StatefulWidget {
@@ -39,13 +40,14 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      backgroundColor: Color(0xffF5F5F5),
       appBar: AppBar(
         centerTitle: true,
         title: Text('سبد خرید'),
       ),
       body: BlocProvider(
         create: (context) {
-          final bloc = CartBloc(sl());
+          final bloc = CartBloc(sl(), sl());
           cartBloc = bloc;
           bloc.add(LoadCart(authModel: AuthRepository.authChangeNotifier.value));
 
@@ -66,107 +68,39 @@ class _CartScreenState extends State<CartScreen> {
                 itemCount: state.cart.cartItems!.length,
                 itemBuilder: (BuildContext context, int index) {
                   final cart = state.cart.cartItems![index];
-                  return Container(
-                    margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.surface,
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
-                          blurRadius: 10,
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 100,
-                                height: 100,
-                                child: LoadImage(
-                                  image: cart.product!.image!,
-                                  borderRadius: BorderRadius.zero,
-                                ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Text(
-                                    cart.product!.title!,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8, left: 8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: [
-                                  Text('تعداد'),
-                                  Row(
-                                    children: [
-                                      IconButton(onPressed: () {}, icon: Icon(CupertinoIcons.plus_rectangle)),
-                                      Text(cart.count!.toString(), style: theme.textTheme.titleLarge),
-                                      IconButton(onPressed: () {}, icon: Icon(CupertinoIcons.minus_rectangle)),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Text(
-                                    cart.product!.previousPrice!.withPriceLabel(),
-                                    style: TextStyle(decoration: TextDecoration.lineThrough),
-                                  ),
-                                  Text(
-                                    cart.product!.price!.withPriceLabel(),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                        Divider(
-                          height: 1,
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text('حذف از سبد خرید'),
-                        ),
-                      ],
-                    ),
+                  return CartItemWidget(
+                    theme: theme,
+                    cart: cart,
+                    onDeleteButtonClick: () {
+                      cartBloc.add(ClickDeleteCartEvent(cartItemId: cart.cartItemId!));
+                    },
                   );
                 },
               );
             } else if (state is CartAuthRequired) {
-              return Expanded(
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('وارد حساب کاربری خود شوید'),
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => AuthScreen(),
-                              ),
-                            );
-                          },
-                          child: Text('ورود'))
-                    ],
-                  ),
+              return EmptyView(
+                message: 'برای مشاهده سبد خرید ابتدا وارد حساب خود شوید',
+                callToAction: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => AuthScreen(),
+                      ),
+                    );
+                  },
+                  child: Text('ورود به حساب کاربری'),
+                ),
+                image: SvgPicture.asset(
+                  '${Constants.baseImageLocation}auth_required.svg',
+                  width: 140,
+                ),
+              );
+            } else if (state is CartEmptyState) {
+              return EmptyView(
+                message: 'سبد خرید شما خالی می باشد',
+                image: SvgPicture.asset(
+                  "${Constants.baseImageLocation}empty_cart.svg",
+                  width: 200,
                 ),
               );
             }
@@ -177,6 +111,7 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 }
+
 
 //    ValueListenableBuilder<AuthModel?>(
       //     valueListenable: AuthRepository.authChangeNotifier,

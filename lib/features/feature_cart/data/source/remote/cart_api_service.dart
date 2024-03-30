@@ -21,8 +21,13 @@ class CartApiService {
         },
       );
 
+  Future<dynamic> delete(int cartItemId) async => await dio.post(
+        'cart/remove',
+        data: {'cart_item_id': cartItemId},
+      );
+
   // Future<dynamic> changeCount(int cartItemId, int count) {}
-  // Future<dynamic> delete(int cartItemId) {}
+
   // Future<dynamic> count() {}
   Future<dynamic> list() async => await dio.get('/cart/list');
 }

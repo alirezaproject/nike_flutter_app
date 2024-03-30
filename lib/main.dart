@@ -33,10 +33,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
             themeMode: ThemeMode.light,
-            home: Directionality(
-              textDirection: TextDirection.rtl,
-              child: RootScreen(),
-            ),
+            home: RootScreen(),
           );
         });
       },

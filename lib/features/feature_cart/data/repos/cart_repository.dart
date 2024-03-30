@@ -32,9 +32,9 @@ class CartRepository extends ICartRepository with HttpValidator {
   }
 
   @override
-  Future delete(int cartItemId) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future delete(int cartItemId) async {
+    Response response = await _cartApiService.delete(cartItemId);
+    validateResponse(response);
   }
 
   @override

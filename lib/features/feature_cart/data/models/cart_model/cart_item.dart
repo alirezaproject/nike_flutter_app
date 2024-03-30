@@ -4,7 +4,7 @@ class CartItem {
   final int? cartItemId;
   final ProductModel? product;
   final int? count;
-
+  bool deleteButtonLoading = false;
   CartItem({this.cartItemId, this.product, this.count});
 
   factory CartItem.fromJson(Map<String, dynamic> json) => CartItem(

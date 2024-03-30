@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nike/core/params/auth_params.dart';
 import 'package:nike/core/utils/constants.dart';
+import 'package:nike/core/widgets/root.dart';
+import 'package:nike/features/feature_home/presentation/screens/home_screen.dart';
 import 'package:nike/service_locator.dart';
 import 'package:nike/features/feature_auth/presentation/bloc/auth_bloc.dart';
 
@@ -64,7 +66,11 @@ class AuthScreen extends StatelessWidget {
               final bloc = sl<AuthBloc>();
               bloc.stream.forEach((state) {
                 if (state is AuthSuccess) {
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => RootScreen(),
+                    ),
+                  );
                 } else if (state is AuthError) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
