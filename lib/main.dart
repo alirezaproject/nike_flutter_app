@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nike/config/theme.dart';
+import 'package:nike/core/config/theme.dart';
 import 'package:nike/core/widgets/root.dart';
 import 'package:nike/service_locator.dart';
-import 'package:nike/features/feature_auth/domain/repository/auth_repository.dart';
+import 'package:nike/features/auth/domain/repository/auth_repository.dart';
 import 'package:nike/services/theme_service.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
             themeMode: ThemeMode.light,
-            home: RootScreen(),
+            home: const RootScreen(),
           );
         });
       },

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nike/core/extensions/price_label.dart';
 import 'package:nike/core/widgets/image.dart';
-import 'package:nike/features/feature_product/domain/entities/product_entity.dart';
-import 'package:nike/features/feature_product/presentation/screens/product_detail_screen.dart';
+import 'package:nike/features/product/domain/entities/product_entity.dart';
+import 'package:nike/features/product/presentation/screens/product_detail_screen.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
@@ -49,10 +49,9 @@ class ProductItem extends StatelessWidget {
                     child: Container(
                       width: 32,
                       height: 32,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.white),
+                      decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
                       alignment: Alignment.center,
-                      child: Icon(
+                      child: const Icon(
                         CupertinoIcons.heart,
                         size: 20,
                       ),
@@ -60,25 +59,23 @@ class ProductItem extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(product.title!,
-                    overflow: TextOverflow.ellipsis, maxLines: 1),
+                child: Text(product.title!, overflow: TextOverflow.ellipsis, maxLines: 1),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0, left: 8),
                 child: Text(
-                  product.previousPrice!.withPriceLabel(),
-                  style: theme.textTheme.bodySmall!
-                      .copyWith(decoration: TextDecoration.lineThrough),
+                  product.previousPrice!.withPriceLabel,
+                  style: theme.textTheme.bodySmall!.copyWith(decoration: TextDecoration.lineThrough),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0, left: 8, top: 4),
-                child: Text(product.price!.withPriceLabel()),
+                child: Text(product.price!.withPriceLabel),
               ),
             ],
           ),

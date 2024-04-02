@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nike/features/feature_auth/domain/usecases/signout_user_usecase.dart';
-import 'package:nike/features/feature_cart/presentation/screens/cart_screen.dart';
-import 'package:nike/features/feature_home/presentation/screens/home_screen.dart';
+import 'package:nike/features/auth/domain/usecases/signout_user_usecase.dart';
+import 'package:nike/features/cart/presentation/screens/cart_screen.dart';
+import 'package:nike/features/home/presentation/screens/home_screen.dart';
 import 'package:nike/service_locator.dart';
 
 const int homeIndex = 0;
@@ -59,7 +59,7 @@ class _RootScreenState extends State<RootScreen> {
             index: selectedScreenIndex,
             children: [
               _navigator(_homeKey, homeIndex, const HomeScreen()),
-              _navigator(_cartKey, cartIndex, CartScreen()),
+              _navigator(_cartKey, cartIndex, const CartScreen()),
               _navigator(
                   _profileKey,
                   profileIndex,
@@ -67,10 +67,10 @@ class _RootScreenState extends State<RootScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Profile'),
+                        const Text('Profile'),
                         ElevatedButton(
                           onPressed: () async => await _signOutUserUseCase(),
-                          child: Text('خروج از حساب کاربری'),
+                          child: const Text('خروج از حساب کاربری'),
                         ),
                       ],
                     ),

@@ -20,7 +20,7 @@ class AppErrorWidget extends StatelessWidget {
           Text(exception.message),
           ElevatedButton(
             onPressed: onTap,
-            child: Text('تلاش مجدد'),
+            child: const Text('تلاش مجدد'),
           ),
         ],
       ),
