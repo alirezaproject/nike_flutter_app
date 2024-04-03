@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:nike/core/utils/http_validator.dart';
 import 'package:nike/features/cart/data/models/cart_model/cart_model.dart';
 import 'package:nike/features/cart/data/models/cart_response_model.dart';
@@ -9,7 +10,7 @@ import 'package:nike/features/cart/domain/repos/cart_repository.dart';
 
 class CartRepository extends ICartRepository with HttpValidator {
   final CartApiService _cartApiService;
-
+  static ValueNotifier<int> cartItemCountNotifier = ValueNotifier(0);
   CartRepository(this._cartApiService);
 
   @override
@@ -27,9 +28,12 @@ class CartRepository extends ICartRepository with HttpValidator {
   }
 
   @override
-  Future<int> count() {
-    // TODO: implement count
-    throw UnimplementedError();
+  Future<int> count() async {
+    Response response = await _cartApiService.count();
+    validateResponse(response);
+    final count = response.data['count'];
+    cartItemCountNotifier.value = count;
+    return count;
   }
 
   @override

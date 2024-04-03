@@ -5,6 +5,7 @@ import 'package:nike/core/params/auth_params.dart';
 import 'package:nike/core/utils/error_handler.dart';
 import 'package:nike/features/auth/domain/usecases/login_user_usecase.dart';
 import 'package:nike/features/auth/domain/usecases/register_user_usecase.dart';
+import 'package:nike/features/cart/domain/usecases/get_cart_count_item_usecase.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -12,7 +13,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   bool isLoginMode;
   final LoginUserUseCase _loginUserUseCase;
   final RegisterUserUseCase _registerUserUseCase;
-  AuthBloc(this.isLoginMode, this._loginUserUseCase, this._registerUserUseCase) : super(AuthInitial(isLoginMode)) {
+  final GetCartCountItemUseCase _getCartCountItemUseCase;
+  AuthBloc(this.isLoginMode, this._loginUserUseCase, this._registerUserUseCase, this._getCartCountItemUseCase) : super(AuthInitial(isLoginMode)) {
     on<LoadAuthScreen>((event, emit) async {
       emit(AuthInitial(isLoginMode));
     });
@@ -21,6 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthLoading(isLoginMode));
         if (isLoginMode) {
           await _loginUserUseCase(event.params);
+          await _getCartCountItemUseCase();
           emit(AuthSuccess(isLoginMode));
         } else {
           await _registerUserUseCase(event.params);

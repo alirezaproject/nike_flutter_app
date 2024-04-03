@@ -17,6 +17,7 @@ import 'package:nike/features/cart/domain/repos/cart_repository.dart';
 import 'package:nike/features/cart/domain/usecases/add_to_cart_usecase.dart';
 import 'package:nike/features/cart/domain/usecases/cart_change_count_usecase.dart';
 import 'package:nike/features/cart/domain/usecases/delete_cart_item_usecase.dart';
+import 'package:nike/features/cart/domain/usecases/get_cart_count_item_usecase.dart';
 import 'package:nike/features/cart/domain/usecases/get_cart_list_usecase.dart';
 import 'package:nike/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:nike/features/home/presentation/bloc/home_bloc.dart';
@@ -61,11 +62,12 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<GetCartListUseCase>(() => GetCartListUseCase(sl()));
   sl.registerLazySingleton<DeleteCartItemUseCase>(() => DeleteCartItemUseCase(sl()));
   sl.registerLazySingleton<CartChangeCountUseCase>(() => CartChangeCountUseCase(sl()));
+  sl.registerLazySingleton<GetCartCountItemUseCase>(() => GetCartCountItemUseCase(sl()));
 
   // bloc
   sl.registerFactory<HomeBloc>(() => HomeBloc(sl(), sl()));
   sl.registerFactory<CommentBloc>(() => CommentBloc(sl()));
-  sl.registerFactory<AuthBloc>(() => AuthBloc(true, sl(), sl()));
-  sl.registerFactory<ProductBloc>(() => ProductBloc(sl()));
-  sl.registerFactory<CartBloc>(() => CartBloc(sl(), sl(), sl()));
+  sl.registerFactory<AuthBloc>(() => AuthBloc(true, sl(), sl(), sl()));
+  sl.registerFactory<ProductBloc>(() => ProductBloc(sl(), sl()));
+  sl.registerFactory<CartBloc>(() => CartBloc(sl(), sl(), sl(), sl()));
 }

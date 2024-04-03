@@ -6,6 +6,7 @@ import 'package:nike/features/auth/data/models/auth_model.dart';
 import 'package:nike/features/cart/domain/entities/cart_entity.dart';
 import 'package:nike/features/cart/domain/usecases/cart_change_count_usecase.dart';
 import 'package:nike/features/cart/domain/usecases/delete_cart_item_usecase.dart';
+import 'package:nike/features/cart/domain/usecases/get_cart_count_item_usecase.dart';
 import 'package:nike/features/cart/domain/usecases/get_cart_list_usecase.dart';
 
 part 'cart_event.dart';
@@ -15,7 +16,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   final GetCartListUseCase _getCartListUseCase;
   final DeleteCartItemUseCase _deleteCartItemUseCase;
   final CartChangeCountUseCase _cartChangeCountUseCase;
-  CartBloc(this._getCartListUseCase, this._deleteCartItemUseCase, this._cartChangeCountUseCase) : super(CartLoading()) {
+  final GetCartCountItemUseCase _getCartCountItemUseCase;
+  CartBloc(this._getCartListUseCase, this._deleteCartItemUseCase, this._cartChangeCountUseCase, this._getCartCountItemUseCase)
+      : super(CartLoading()) {
     on<LoadCart>((event, emit) async {
       final authinfo = event.authModel;
       if (authinfo == null || authinfo.accessToken.isEmpty) {
@@ -45,6 +48,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           cartItem.deleteButtonLoading = true;
           emit(CartSuccess(cart: successState.cart));
           await _deleteCartItemUseCase(cartItem.cartItemId!);
+          await _getCartCountItemUseCase();
         }
 
         if (state is CartSuccess) {
@@ -74,6 +78,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           await _cartChangeCountUseCase(
             ChangeCartCountParams(cartItemId: cartItem.cartItemId!, count: newCount),
           );
+          await _getCartCountItemUseCase();
           successState.cart.cartItems!.firstWhere((element) => element.cartItemId == event.cartItemId).count = newCount;
           cartItem.changeCountLoading = false;
           emit(calculatePriceInfo(successState.cart));
@@ -96,6 +101,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           await _cartChangeCountUseCase(
             ChangeCartCountParams(cartItemId: cartItem.cartItemId!, count: newCount),
           );
+          await _getCartCountItemUseCase();
           successState.cart.cartItems!.firstWhere((element) => element.cartItemId == event.cartItemId).count = newCount;
 
           cartItem.changeCountLoading = false;

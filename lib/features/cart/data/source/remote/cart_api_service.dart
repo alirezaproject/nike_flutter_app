@@ -34,6 +34,7 @@ class CartApiService {
         },
       );
 
-  // Future<dynamic> count() {}
+  Future<dynamic> count() async => await dio.get('/cart/count');
+
   Future<dynamic> list() async => await dio.get('/cart/list');
 }

@@ -65,7 +65,7 @@ class AppTheme {
       scaffoldBackgroundColor: Colors.white,
       colorScheme: const ColorScheme.light(
         primary: _lightPrimaryColor,
-        onPrimary: _lightPrimaryColor,
+        onPrimary: Colors.white,
         secondary: _lightSecondaryColor,
         onSecondary: _lightSecondaryTextColor,
         primaryContainer: _lightSecondaryColor,
