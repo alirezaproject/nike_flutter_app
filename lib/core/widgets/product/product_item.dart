@@ -49,7 +49,8 @@ class ProductItem extends StatelessWidget {
                     child: Container(
                       width: 32,
                       height: 32,
-                      decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.white),
                       alignment: Alignment.center,
                       child: const Icon(
                         CupertinoIcons.heart,
@@ -64,13 +65,15 @@ class ProductItem extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(product.title!, overflow: TextOverflow.ellipsis, maxLines: 1),
+                child: Text(product.title!,
+                    overflow: TextOverflow.ellipsis, maxLines: 1),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0, left: 8),
                 child: Text(
                   product.previousPrice!.withPriceLabel,
-                  style: theme.textTheme.bodySmall!.copyWith(decoration: TextDecoration.lineThrough),
+                  style: theme.textTheme.bodySmall!
+                      .copyWith(decoration: TextDecoration.lineThrough),
                 ),
               ),
               Padding(

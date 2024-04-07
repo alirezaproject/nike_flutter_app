@@ -6,5 +6,9 @@ class CartEntity {
   int? totalPrice;
   int? shippingCost;
 
-  CartEntity({required this.cartItems, required this.payablePrice, required this.totalPrice, required this.shippingCost});
+  CartEntity(
+      {required this.cartItems,
+      required this.payablePrice,
+      required this.totalPrice,
+      required this.shippingCost});
 }

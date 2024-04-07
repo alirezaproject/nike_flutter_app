@@ -59,7 +59,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               builder: (context, state) {
                 return FloatingActionButton.extended(
                   onPressed: () {
-                    BlocProvider.of<ProductBloc>(context).add(AddCartButtonClick(productId: widget.product.id!));
+                    BlocProvider.of<ProductBloc>(context)
+                        .add(AddCartButtonClick(productId: widget.product.id!));
                   },
                   label: (state is ProductAddToCartButtonLoading)
                       ? CupertinoActivityIndicator(
@@ -73,13 +74,16 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               },
             ),
           ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
           body: CustomScrollView(
             physics: Constants.defaultScrollPhysics,
             slivers: [
               SliverAppBar(
                 expandedHeight: MediaQuery.of(context).size.width * 0.8,
-                flexibleSpace: LoadImage(image: widget.product.image!, borderRadius: BorderRadius.zero),
+                flexibleSpace: LoadImage(
+                    image: widget.product.image!,
+                    borderRadius: BorderRadius.zero),
                 actions: [
                   IconButton(
                     onPressed: () {},

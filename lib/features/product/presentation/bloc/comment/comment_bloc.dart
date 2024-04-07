@@ -18,7 +18,9 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
         final comments = await _getCommentListUsecase(event.productId);
         emit(CommentCompleted(comments: comments));
       } catch (e) {
-        emit(CommentError(message: e is AppException ? e.message : Constants.defaultErrorMessage));
+        emit(CommentError(
+            message:
+                e is AppException ? e.message : Constants.defaultErrorMessage));
       }
     });
   }

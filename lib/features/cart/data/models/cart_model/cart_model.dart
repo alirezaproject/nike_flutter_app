@@ -13,10 +13,16 @@ class CartModel extends CartEntity {
     this.payablePrice,
     this.totalPrice,
     this.shippingCost,
-  }) : super(cartItems: null, payablePrice: null, totalPrice: null, shippingCost: null);
+  }) : super(
+            cartItems: null,
+            payablePrice: null,
+            totalPrice: null,
+            shippingCost: null);
 
   factory CartModel.fromJson(Map<String, dynamic> json) => CartModel(
-        cartItems: (json['cart_items'] as List<dynamic>?)?.map((e) => CartItem.fromJson(e as Map<String, dynamic>)).toList(),
+        cartItems: (json['cart_items'] as List<dynamic>?)
+            ?.map((e) => CartItem.fromJson(e as Map<String, dynamic>))
+            .toList(),
         payablePrice: json['payable_price'] as int?,
         totalPrice: json['total_price'] as int?,
         shippingCost: json['shipping_cost'] as int?,

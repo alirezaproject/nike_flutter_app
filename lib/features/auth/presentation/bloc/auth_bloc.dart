@@ -14,7 +14,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUserUseCase _loginUserUseCase;
   final RegisterUserUseCase _registerUserUseCase;
   final GetCartCountItemUseCase _getCartCountItemUseCase;
-  AuthBloc(this.isLoginMode, this._loginUserUseCase, this._registerUserUseCase, this._getCartCountItemUseCase) : super(AuthInitial(isLoginMode)) {
+  AuthBloc(this.isLoginMode, this._loginUserUseCase, this._registerUserUseCase,
+      this._getCartCountItemUseCase)
+      : super(AuthInitial(isLoginMode)) {
     on<LoadAuthScreen>((event, emit) async {
       emit(AuthInitial(isLoginMode));
     });

@@ -13,10 +13,13 @@ class CommentRepository with HttpValidator implements ICommentRepository {
   @override
   Future<List<CommentEntity>> fetchComments(int productId) async {
     try {
-      Response response = await _commentApiService.getCommentsByProductId(productId);
+      Response response =
+          await _commentApiService.getCommentsByProductId(productId);
       validateResponse(response);
 
-      List<CommentEntity> comments = (response.data as List).map((json) => CommentModel.fromJson(json)).map((e) {
+      List<CommentEntity> comments = (response.data as List)
+          .map((json) => CommentModel.fromJson(json))
+          .map((e) {
         return CommentEntity(
           id: e.id,
           title: e.title,

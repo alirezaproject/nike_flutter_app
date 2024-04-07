@@ -17,7 +17,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   final DeleteCartItemUseCase _deleteCartItemUseCase;
   final CartChangeCountUseCase _cartChangeCountUseCase;
   final GetCartCountItemUseCase _getCartCountItemUseCase;
-  CartBloc(this._getCartListUseCase, this._deleteCartItemUseCase, this._cartChangeCountUseCase, this._getCartCountItemUseCase)
+  CartBloc(this._getCartListUseCase, this._deleteCartItemUseCase,
+      this._cartChangeCountUseCase, this._getCartCountItemUseCase)
       : super(CartLoading()) {
     on<LoadCart>((event, emit) async {
       final authinfo = event.authModel;
@@ -53,7 +54,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
         if (state is CartSuccess) {
           final successState = (state as CartSuccess);
-          successState.cart.cartItems!.removeWhere((element) => element.cartItemId == event.cartItemId);
+          successState.cart.cartItems!
+              .removeWhere((element) => element.cartItemId == event.cartItemId);
           if (successState.cart.cartItems!.isEmpty) {
             emit(CartEmptyState());
           } else {
@@ -76,10 +78,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           emit(CartSuccess(cart: successState.cart));
           final newCount = cartItem.count! + 1;
           await _cartChangeCountUseCase(
-            ChangeCartCountParams(cartItemId: cartItem.cartItemId!, count: newCount),
+            ChangeCartCountParams(
+                cartItemId: cartItem.cartItemId!, count: newCount),
           );
           await _getCartCountItemUseCase();
-          successState.cart.cartItems!.firstWhere((element) => element.cartItemId == event.cartItemId).count = newCount;
+          successState.cart.cartItems!
+              .firstWhere((element) => element.cartItemId == event.cartItemId)
+              .count = newCount;
           cartItem.changeCountLoading = false;
           emit(calculatePriceInfo(successState.cart));
         }
@@ -99,10 +104,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           final newCount = cartItem.count! - 1;
 
           await _cartChangeCountUseCase(
-            ChangeCartCountParams(cartItemId: cartItem.cartItemId!, count: newCount),
+            ChangeCartCountParams(
+                cartItemId: cartItem.cartItemId!, count: newCount),
           );
           await _getCartCountItemUseCase();
-          successState.cart.cartItems!.firstWhere((element) => element.cartItemId == event.cartItemId).count = newCount;
+          successState.cart.cartItems!
+              .firstWhere((element) => element.cartItemId == event.cartItemId)
+              .count = newCount;
 
           cartItem.changeCountLoading = false;
           emit(calculatePriceInfo(successState.cart));

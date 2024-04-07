@@ -10,7 +10,8 @@ part 'product_state.dart';
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final AddToCartUseCase _addToCartUseCase;
   final GetCartCountItemUseCase _getCartCountItemUseCase;
-  ProductBloc(this._addToCartUseCase, this._getCartCountItemUseCase) : super(ProductInitial()) {
+  ProductBloc(this._addToCartUseCase, this._getCartCountItemUseCase)
+      : super(ProductInitial()) {
     on<AddCartButtonClick>((event, emit) async {
       try {
         emit(ProductAddToCartButtonLoading());

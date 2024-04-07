@@ -72,11 +72,16 @@ class CartItemWidget extends StatelessWidget {
                     const Text('تعداد'),
                     Row(
                       children: [
-                        IconButton(onPressed: onIncreaseButtonClick, icon: const Icon(CupertinoIcons.plus_rectangle)),
+                        IconButton(
+                            onPressed: onIncreaseButtonClick,
+                            icon: const Icon(CupertinoIcons.plus_rectangle)),
                         cart.changeCountLoading
                             ? const CupertinoActivityIndicator()
-                            : Text(cart.count!.toString(), style: theme.textTheme.titleLarge),
-                        IconButton(onPressed: onDecreaseButtonClick, icon: const Icon(CupertinoIcons.minus_rectangle)),
+                            : Text(cart.count!.toString(),
+                                style: theme.textTheme.titleLarge),
+                        IconButton(
+                            onPressed: onDecreaseButtonClick,
+                            icon: const Icon(CupertinoIcons.minus_rectangle)),
                       ],
                     ),
                   ],
@@ -85,7 +90,9 @@ class CartItemWidget extends StatelessWidget {
                   children: [
                     Text(
                       cart.product!.previousPrice!.withPriceLabel,
-                      style: TextStyle(decoration: TextDecoration.lineThrough, color: theme.colorScheme.onSecondary),
+                      style: TextStyle(
+                          decoration: TextDecoration.lineThrough,
+                          color: theme.colorScheme.onSecondary),
                     ),
                     Text(
                       cart.product!.price!.withPriceLabel,

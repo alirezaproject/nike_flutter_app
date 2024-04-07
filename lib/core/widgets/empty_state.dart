@@ -5,7 +5,11 @@ class EmptyView extends StatelessWidget {
   final Widget? callToAction;
   final Widget image;
 
-  const EmptyView({super.key, required this.message, this.callToAction, required this.image});
+  const EmptyView(
+      {super.key,
+      required this.message,
+      this.callToAction,
+      required this.image});
 
   @override
   Widget build(BuildContext context) {

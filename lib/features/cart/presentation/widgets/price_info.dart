@@ -6,7 +6,11 @@ class PriceInfo extends StatelessWidget {
   final int shippingCost;
   final int totalPrice;
 
-  const PriceInfo({super.key, required this.payablePrice, required this.shippingCost, required this.totalPrice});
+  const PriceInfo(
+      {super.key,
+      required this.payablePrice,
+      required this.shippingCost,
+      required this.totalPrice});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +40,7 @@ class PriceInfo extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(8, 12, 8, 12),
+                padding: const EdgeInsets.fromLTRB(8, 16, 8, 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -44,7 +48,9 @@ class PriceInfo extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: totalPrice.seprateByComma,
-                        style: DefaultTextStyle.of(context).style.apply(color: theme.colorScheme.secondary),
+                        style: DefaultTextStyle.of(context)
+                            .style
+                            .apply(color: theme.colorScheme.secondary),
                         children: const [
                           TextSpan(
                             text: '  تومان',
@@ -60,7 +66,7 @@ class PriceInfo extends StatelessWidget {
                 height: 1,
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(8, 12, 8, 12),
+                padding: const EdgeInsets.fromLTRB(8, 16, 8, 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -73,7 +79,7 @@ class PriceInfo extends StatelessWidget {
                 height: 1,
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(8, 12, 8, 12),
+                padding: const EdgeInsets.fromLTRB(8, 16, 8, 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -81,11 +87,13 @@ class PriceInfo extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                           text: payablePrice.seprateByComma,
-                          style: DefaultTextStyle.of(context).style.copyWith(fontWeight: FontWeight.bold, fontSize: 18),
+                          style: DefaultTextStyle.of(context).style.copyWith(
+                              fontWeight: FontWeight.bold, fontSize: 18),
                           children: const [
                             TextSpan(
                               text: '  تومان',
-                              style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal),
+                              style: TextStyle(
+                                  fontSize: 10, fontWeight: FontWeight.normal),
                             ),
                           ]),
                     ),

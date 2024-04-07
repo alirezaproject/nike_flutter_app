@@ -26,7 +26,8 @@ class CartApiService {
         data: {'cart_item_id': cartItemId},
       );
 
-  Future<dynamic> changeCount(int cartItemId, int count) async => await dio.post(
+  Future<dynamic> changeCount(int cartItemId, int count) async =>
+      await dio.post(
         'cart/changeCount',
         data: {
           'cart_item_id': cartItemId,

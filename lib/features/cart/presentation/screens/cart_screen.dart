@@ -11,6 +11,7 @@ import 'package:nike/features/auth/presentation/screens/auth_screen.dart';
 import 'package:nike/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:nike/features/cart/presentation/widgets/cart_item.dart';
 import 'package:nike/features/cart/presentation/widgets/price_info.dart';
+import 'package:nike/features/shipping/presentation/screen/shipping_screen.dart';
 import 'package:nike/service_locator.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -33,12 +34,14 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   void authChangeNotifierListener() {
-    cartBloc.add(CartAuthInfoChanged(authModel: AuthRepository.authChangeNotifier.value));
+    cartBloc.add(CartAuthInfoChanged(
+        authModel: AuthRepository.authChangeNotifier.value));
   }
 
   @override
   void dispose() {
-    AuthRepository.authChangeNotifier.removeListener(authChangeNotifierListener);
+    AuthRepository.authChangeNotifier
+        .removeListener(authChangeNotifierListener);
     cartBloc.close();
 
     streamSubscription?.cancel();
@@ -62,7 +65,20 @@ class _CartScreenState extends State<CartScreen> {
           width: double.infinity,
           child: FloatingActionButton.extended(
             foregroundColor: Colors.white,
-            onPressed: () {},
+            onPressed: () {
+              final state = cartBloc.state;
+              if (state is CartSuccess) {
+                Navigator.of(context).push((MaterialPageRoute(
+                  builder: (context) {
+                    return ShippingScreen(
+                      payablePrice: state.cart.payablePrice!,
+                      shippingCost: state.cart.shippingCost!,
+                      totalPrice: state.cart.totalPrice!,
+                    );
+                  },
+                )));
+              }
+            },
             label: const Text('پرداخت'),
           ),
         ),
@@ -85,7 +101,8 @@ class _CartScreenState extends State<CartScreen> {
             }
           });
           cartBloc = bloc;
-          bloc.add(LoadCart(authModel: AuthRepository.authChangeNotifier.value));
+          bloc.add(
+              LoadCart(authModel: AuthRepository.authChangeNotifier.value));
 
           return bloc;
         },
@@ -103,7 +120,9 @@ class _CartScreenState extends State<CartScreen> {
               return SmartRefresher(
                 onRefresh: () {
                   cartBloc.add(
-                    LoadCart(authModel: AuthRepository.authChangeNotifier.value, isRefresh: true),
+                    LoadCart(
+                        authModel: AuthRepository.authChangeNotifier.value,
+                        isRefresh: true),
                   );
                 },
                 controller: _refreshController,
@@ -117,14 +136,18 @@ class _CartScreenState extends State<CartScreen> {
                         theme: theme,
                         cart: cart,
                         onDeleteButtonClick: () {
-                          cartBloc.add(ClickDeleteCartEvent(cartItemId: cart.cartItemId!));
+                          cartBloc.add(ClickDeleteCartEvent(
+                              cartItemId: cart.cartItemId!));
                         },
                         onDecreaseButtonClick: () {
                           if (cart.count! > 1) {
-                            cartBloc.add(ClickDecreaseCountButton(cartItemId: cart.cartItemId!));
+                            cartBloc.add(ClickDecreaseCountButton(
+                                cartItemId: cart.cartItemId!));
                           }
                         },
-                        onIncreaseButtonClick: () => cartBloc.add(ClickIncreaseCountButton(cartItemId: cart.cartItemId!)),
+                        onIncreaseButtonClick: () => cartBloc.add(
+                            ClickIncreaseCountButton(
+                                cartItemId: cart.cartItemId!)),
                       );
                     } else {
                       return PriceInfo(
@@ -174,41 +197,40 @@ class _CartScreenState extends State<CartScreen> {
   }
 }
 
-
 //    ValueListenableBuilder<AuthModel?>(
-      //     valueListenable: AuthRepository.authChangeNotifier,
-      //     builder: (BuildContext context, authState, Widget? child) {
-      //       bool isAuthenticated = authState != null && authState.accessToken.isNotEmpty;
-      //       return Center(
-      //         child: Column(
-      //           mainAxisAlignment: MainAxisAlignment.center,
-      //           children: [
-      //             Text(
-      //               isAuthenticated ? 'خوش آمدید' : 'لطفا وارد حساب کاربری خود شوید',
-      //             ),
-      //              !isAuthenticated
-      //                 ? ElevatedButton(
-      //                     onPressed: () {
-      //                       Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
-      //                         builder: (context) => AuthScreen(),
-      //                       ));
-      //                     },
-      //                     child: Text('ورود'),
-      //                   )
-      //                 : ElevatedButton(
-      //                     onPressed: () {
-      //                       _signOutUserUseCase();
-      //                     },
-      //                     child: Text('خروج از حساب'),
-      //                   ),
-      //             ElevatedButton(
-      //               onPressed: () {
-      //                 _signOutUserUseCase.refreshToken();
-      //               },
-      //               child: Text('Refresh Token'),
-      //             )
-      //           ],
-      //         ),
-      //       );
-      //     },
-      //   ),
+//     valueListenable: AuthRepository.authChangeNotifier,
+//     builder: (BuildContext context, authState, Widget? child) {
+//       bool isAuthenticated = authState != null && authState.accessToken.isNotEmpty;
+//       return Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Text(
+//               isAuthenticated ? 'خوش آمدید' : 'لطفا وارد حساب کاربری خود شوید',
+//             ),
+//              !isAuthenticated
+//                 ? ElevatedButton(
+//                     onPressed: () {
+//                       Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+//                         builder: (context) => AuthScreen(),
+//                       ));
+//                     },
+//                     child: Text('ورود'),
+//                   )
+//                 : ElevatedButton(
+//                     onPressed: () {
+//                       _signOutUserUseCase();
+//                     },
+//                     child: Text('خروج از حساب'),
+//                   ),
+//             ElevatedButton(
+//               onPressed: () {
+//                 _signOutUserUseCase.refreshToken();
+//               },
+//               child: Text('Refresh Token'),
+//             )
+//           ],
+//         ),
+//       );
+//     },
+//   ),

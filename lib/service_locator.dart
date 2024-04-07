@@ -31,6 +31,11 @@ import 'package:nike/features/product/domain/use_cases/get_comment_list_usecase.
 import 'package:nike/features/product/domain/use_cases/get_product_list_usecase.dart';
 import 'package:nike/features/product/presentation/bloc/comment/comment_bloc.dart';
 import 'package:nike/features/product/presentation/bloc/product/product_bloc.dart';
+import 'package:nike/features/shipping/data/repos/order_repository.dart';
+import 'package:nike/features/shipping/data/source/order_api_service.dart';
+import 'package:nike/features/shipping/domain/repos/order_repository.dart';
+import 'package:nike/features/shipping/domain/usecases/create_order_usecase.dart';
+import 'package:nike/features/shipping/presentation/bloc/shipping_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -43,6 +48,7 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<CommentApiService>(() => CommentApiService());
   sl.registerLazySingleton<AuthApiService>(() => AuthApiService());
   sl.registerLazySingleton<CartApiService>(() => CartApiService());
+  sl.registerLazySingleton<OrderApiSerivce>(() => OrderApiSerivce());
 
   // Repositories
   sl.registerLazySingleton<IProductRepository>(() => ProductRepository(sl()));
@@ -50,6 +56,7 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<ICommentRepository>(() => CommentRepository(sl()));
   sl.registerLazySingleton<IAuthRepository>(() => AuthRepository(sl()));
   sl.registerLazySingleton<ICartRepository>(() => CartRepository(sl()));
+  sl.registerLazySingleton<IOrderRepository>(() => OrderRepository(sl()));
 
   // UseCases
   sl.registerLazySingleton<GetProductListUseCase>(() => GetProductListUseCase(sl()));
@@ -64,10 +71,13 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<CartChangeCountUseCase>(() => CartChangeCountUseCase(sl()));
   sl.registerLazySingleton<GetCartCountItemUseCase>(() => GetCartCountItemUseCase(sl()));
 
+  sl.registerLazySingleton<CreateOrderUseCase>(() => CreateOrderUseCase(sl()));
+
   // bloc
   sl.registerFactory<HomeBloc>(() => HomeBloc(sl(), sl()));
   sl.registerFactory<CommentBloc>(() => CommentBloc(sl()));
   sl.registerFactory<AuthBloc>(() => AuthBloc(true, sl(), sl(), sl()));
   sl.registerFactory<ProductBloc>(() => ProductBloc(sl(), sl()));
   sl.registerFactory<CartBloc>(() => CartBloc(sl(), sl(), sl(), sl()));
+  sl.registerFactory<ShippingBloc>(() => ShippingBloc(sl()));
 }

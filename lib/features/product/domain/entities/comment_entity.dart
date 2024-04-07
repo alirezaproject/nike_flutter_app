@@ -7,5 +7,10 @@ class CommentEntity {
   final String date;
   final Author? author;
 
-  CommentEntity({required this.id, required this.title, required this.content, required this.date, required this.author});
+  CommentEntity(
+      {required this.id,
+      required this.title,
+      required this.content,
+      required this.date,
+      required this.author});
 }

@@ -10,7 +10,8 @@ part 'banner_state.dart';
 
 class BannerBloc extends Bloc<BannerEvent, BannerState> {
   final GetProductListUseCase getProductListUseCase;
-  BannerBloc(this.getProductListUseCase) : super(BannerState(bannerStatus: BannerLoading())) {
+  BannerBloc(this.getProductListUseCase)
+      : super(BannerState(bannerStatus: BannerLoading())) {
     on<LoadBannersEvent>((event, emit) async {
       emit(state.copyWith(BannerLoading()));
 

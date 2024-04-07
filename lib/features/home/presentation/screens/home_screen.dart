@@ -75,7 +75,8 @@ class HomeScreen extends StatelessWidget {
               if (state is HomeError) {
                 return AppErrorWidget(
                   exception: state.exception,
-                  onTap: () => BlocProvider.of<HomeBloc>(context).add(RefreshHomeEvent()),
+                  onTap: () => BlocProvider.of<HomeBloc>(context)
+                      .add(RefreshHomeEvent()),
                 );
               }
               return const SizedBox();

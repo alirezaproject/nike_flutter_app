@@ -7,5 +7,6 @@ class RegisterUserUseCase extends UseCase<void, AuthParams> {
 
   RegisterUserUseCase(this._authRepository);
   @override
-  Future<void> call(AuthParams params) async => await _authRepository.register(params);
+  Future<void> call(AuthParams params) async =>
+      await _authRepository.register(params);
 }

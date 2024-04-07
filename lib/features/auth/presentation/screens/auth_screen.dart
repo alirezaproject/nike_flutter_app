@@ -11,27 +11,33 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController usernameController = TextEditingController(text: 'test@gmail.com');
-    TextEditingController passwordController = TextEditingController(text: '123456');
+    TextEditingController usernameController =
+        TextEditingController(text: 'test@gmail.com');
+    TextEditingController passwordController =
+        TextEditingController(text: '123456');
 
     final theme = Theme.of(context);
     const Color onBackground = Colors.white;
     return Theme(
       data: theme.copyWith(
         textTheme: TextTheme(
-          titleMedium: theme.textTheme.titleMedium!.copyWith(color: onBackground),
+          titleMedium:
+              theme.textTheme.titleMedium!.copyWith(color: onBackground),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-            textStyle: MaterialStateProperty.all<TextStyle>(const TextStyle(fontSize: 18)),
-            minimumSize: MaterialStateProperty.all<Size>(const Size.fromHeight(56)),
+            textStyle: MaterialStateProperty.all<TextStyle>(
+                const TextStyle(fontSize: 18)),
+            minimumSize:
+                MaterialStateProperty.all<Size>(const Size.fromHeight(56)),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
             backgroundColor: MaterialStateProperty.all<Color>(onBackground),
-            foregroundColor: MaterialStateProperty.all<Color>(theme.colorScheme.secondary),
+            foregroundColor:
+                MaterialStateProperty.all<Color>(theme.colorScheme.secondary),
           ),
         ),
         colorScheme: theme.colorScheme.copyWith(
@@ -39,7 +45,8 @@ class AuthScreen extends StatelessWidget {
         ),
         snackBarTheme: SnackBarThemeData(
           backgroundColor: Colors.red,
-          contentTextStyle: theme.textTheme.titleSmall!.copyWith(color: onBackground),
+          contentTextStyle:
+              theme.textTheme.titleSmall!.copyWith(color: onBackground),
         ),
         inputDecorationTheme: InputDecorationTheme(
           fillColor: onBackground,
@@ -85,7 +92,9 @@ class AuthScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 48),
               child: BlocBuilder<AuthBloc, AuthState>(
                 buildWhen: (previous, current) {
-                  return current is AuthLoading || current is AuthInitial || current is AuthError;
+                  return current is AuthLoading ||
+                      current is AuthInitial ||
+                      current is AuthError;
                 },
                 builder: (context, state) {
                   return Column(
@@ -102,14 +111,18 @@ class AuthScreen extends StatelessWidget {
                       ),
                       Text(
                         state.isLoginMode ? 'خوش آمدید' : 'ثبت نام',
-                        style: const TextStyle(color: onBackground, fontSize: 22),
+                        style:
+                            const TextStyle(color: onBackground, fontSize: 22),
                       ),
                       const SizedBox(
                         height: 16,
                       ),
                       Text(
-                        state.isLoginMode ? 'لطفا وارد حساب کاربری خود شوید' : 'ایمیل و رمز عبور خود را تعیین کنید',
-                        style: const TextStyle(color: onBackground, fontSize: 16),
+                        state.isLoginMode
+                            ? 'لطفا وارد حساب کاربری خود شوید'
+                            : 'ایمیل و رمز عبور خود را تعیین کنید',
+                        style:
+                            const TextStyle(color: onBackground, fontSize: 16),
                       ),
                       const SizedBox(
                         height: 16,
@@ -155,7 +168,9 @@ class AuthScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            state.isLoginMode ? 'حساب کاربری ندارید ؟' : 'حساب کاربری دارید ؟',
+                            state.isLoginMode
+                                ? 'حساب کاربری ندارید ؟'
+                                : 'حساب کاربری دارید ؟',
                             style: const TextStyle(color: onBackground),
                           ),
                           const SizedBox(
@@ -163,7 +178,8 @@ class AuthScreen extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                              BlocProvider.of<AuthBloc>(context).add(ClickAuthModeChangeEvent());
+                              BlocProvider.of<AuthBloc>(context)
+                                  .add(ClickAuthModeChangeEvent());
                             },
                             child: Text(
                               state.isLoginMode ? 'ثبت نام' : 'ورود',
@@ -217,7 +233,9 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
             });
           },
           icon: Icon(
-            isSecure ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+            isSecure
+                ? Icons.visibility_outlined
+                : Icons.visibility_off_outlined,
             color: widget.onBackground,
           ),
         ),

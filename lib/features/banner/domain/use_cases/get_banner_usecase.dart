@@ -3,7 +3,8 @@ import 'package:nike/core/usecase/use_case.dart';
 import 'package:nike/features/banner/domain/entities/banner_entity.dart';
 import 'package:nike/features/banner/domain/repository/banner_repository.dart';
 
-class GetBannerUseCase extends UseCaseWithoutParams<DataState<List<BannerEntity>>> {
+class GetBannerUseCase
+    extends UseCaseWithoutParams<DataState<List<BannerEntity>>> {
   final IBannerRepository bannerRepo;
 
   GetBannerUseCase(this.bannerRepo);
