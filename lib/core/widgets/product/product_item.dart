@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:nike/core/extensions/price_label.dart';
 import 'package:nike/core/widgets/image.dart';
 import 'package:nike/features/product/domain/entities/product_entity.dart';
@@ -11,11 +12,15 @@ class ProductItem extends StatelessWidget {
     required this.product,
     required this.theme,
     required this.borderRadius,
+    this.itemWidth = 176,
+    this.itemHeight = 189,
   });
 
   final ProductEntity product;
   final ThemeData theme;
   final BorderRadius borderRadius;
+  final double itemWidth;
+  final double itemHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +34,14 @@ class ProductItem extends StatelessWidget {
           ),
         )),
         child: SizedBox(
-          width: 176,
+          width: itemWidth,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(
                 children: [
-                  SizedBox(
-                    width: 176,
-                    height: 189,
+                  AspectRatio(
+                    aspectRatio: 0.93,
                     child: LoadImage(
                       image: product.image!,
                       borderRadius: borderRadius,
@@ -49,8 +53,7 @@ class ProductItem extends StatelessWidget {
                     child: Container(
                       width: 32,
                       height: 32,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.white),
+                      decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
                       alignment: Alignment.center,
                       child: const Icon(
                         CupertinoIcons.heart,
@@ -65,15 +68,13 @@ class ProductItem extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(product.title!,
-                    overflow: TextOverflow.ellipsis, maxLines: 1),
+                child: Text(product.title!, overflow: TextOverflow.ellipsis, maxLines: 1),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0, left: 8),
                 child: Text(
                   product.previousPrice!.withPriceLabel,
-                  style: theme.textTheme.bodySmall!
-                      .copyWith(decoration: TextDecoration.lineThrough),
+                  style: theme.textTheme.bodySmall!.copyWith(decoration: TextDecoration.lineThrough),
                 ),
               ),
               Padding(

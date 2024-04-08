@@ -31,6 +31,7 @@ import 'package:nike/features/product/domain/use_cases/get_comment_list_usecase.
 import 'package:nike/features/product/domain/use_cases/get_product_list_usecase.dart';
 import 'package:nike/features/product/presentation/bloc/comment/comment_bloc.dart';
 import 'package:nike/features/product/presentation/bloc/product/product_bloc.dart';
+import 'package:nike/features/product/presentation/bloc/product_list/product_list_bloc.dart';
 import 'package:nike/features/shipping/data/repos/order_repository.dart';
 import 'package:nike/features/shipping/data/source/order_api_service.dart';
 import 'package:nike/features/shipping/domain/repos/order_repository.dart';
@@ -84,4 +85,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<CartBloc>(() => CartBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory<ShippingBloc>(() => ShippingBloc(sl()));
   sl.registerFactory<CheckoutBloc>(() => CheckoutBloc(sl()));
+  sl.registerFactory<ProductListBloc>(() => ProductListBloc(sl()));
 }

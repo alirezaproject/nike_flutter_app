@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nike/core/utils/constants.dart';
 import 'package:nike/core/widgets/app_error_widget.dart';
 import 'package:nike/features/home/presentation/widgets/horizontal_product_list.dart';
+import 'package:nike/features/product/domain/entities/product_entity.dart';
+import 'package:nike/features/product/presentation/screens/product_list_screen.dart';
 import 'package:nike/service_locator.dart';
 import 'package:nike/features/home/presentation/bloc/home_bloc.dart';
 import 'package:nike/features/home/presentation/widgets/app_bar.dart';
@@ -47,7 +49,11 @@ class HomeScreen extends StatelessWidget {
                         {
                           return HorizontalProductList(
                             title: 'جدید ترین',
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const ProductListScreen(sort: ProductSort.latest),
+                              ));
+                            },
                             products: state.latestProducts,
                           );
                         }
@@ -55,7 +61,11 @@ class HomeScreen extends StatelessWidget {
                         {
                           return HorizontalProductList(
                             title: 'پربازدید ترین',
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const ProductListScreen(sort: ProductSort.popular),
+                              ));
+                            },
                             products: state.popularProducts,
                           );
                         }
@@ -75,8 +85,7 @@ class HomeScreen extends StatelessWidget {
               if (state is HomeError) {
                 return AppErrorWidget(
                   exception: state.exception,
-                  onTap: () => BlocProvider.of<HomeBloc>(context)
-                      .add(RefreshHomeEvent()),
+                  onTap: () => BlocProvider.of<HomeBloc>(context).add(RefreshHomeEvent()),
                 );
               }
               return const SizedBox();
