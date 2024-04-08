@@ -43,6 +43,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   shared_preferences: ^2.2.2
   smooth_page_indicator: ^1.1.0
+  webview_flutter: ^4.7.0
 
 dev_dependencies:
 

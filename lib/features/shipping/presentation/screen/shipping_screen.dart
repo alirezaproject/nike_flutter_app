@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nike/core/params/create_order_params.dart';
 import 'package:nike/features/cart/presentation/widgets/price_info.dart';
 import 'package:nike/features/shipping/presentation/bloc/shipping_bloc.dart';
+import 'package:nike/features/shipping/presentation/screen/payment_webview.dart';
 import 'package:nike/features/shipping/presentation/screen/receipt.dart';
 import 'package:nike/service_locator.dart';
 
@@ -51,7 +52,20 @@ class _ShippingScreenState extends State<ShippingScreen> {
             if (state is ShippingError) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error.message)));
             } else if (state is ShippingLoaded) {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ReceiptScreen()));
+              if (state.result.bankGatewayUrl!.isNotEmpty) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PaymentGatewayScreen(
+                        bankGatewayUrl: state.result.bankGatewayUrl!,
+                      ),
+                    ));
+              } else {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ReceiptScreen(
+                          orderId: state.result.orderId!,
+                        )));
+              }
             }
           });
           return bloc;
@@ -66,6 +80,9 @@ class _ShippingScreenState extends State<ShippingScreen> {
                   decoration: const InputDecoration(
                     label: Text('نام'),
                   ),
+                ),
+                const SizedBox(
+                  height: 12,
                 ),
                 TextField(
                   controller: lastNameController,
@@ -124,7 +141,21 @@ class _ShippingScreenState extends State<ShippingScreen> {
                                 );
                               },
                               child: const Text('پرداخت در محل')),
-                          ElevatedButton(onPressed: () {}, child: const Text('پرداخت اینترنتی')),
+                          ElevatedButton(
+                              onPressed: () {
+                                BlocProvider.of<ShippingBloc>(context).add(
+                                  ShippingCreateOrder(
+                                    CreateOrderParams(
+                                        firstName: firstNameController.text,
+                                        lastName: lastNameController.text,
+                                        phoneNumber: phoneNumberController.text,
+                                        postalCode: postalCodeController.text,
+                                        address: addressController.text,
+                                        paymenyMethod: PaymentMethod.online),
+                                  ),
+                                );
+                              },
+                              child: const Text('پرداخت اینترنتی')),
                         ],
                       );
                     }

@@ -35,6 +35,8 @@ import 'package:nike/features/shipping/data/repos/order_repository.dart';
 import 'package:nike/features/shipping/data/source/order_api_service.dart';
 import 'package:nike/features/shipping/domain/repos/order_repository.dart';
 import 'package:nike/features/shipping/domain/usecases/create_order_usecase.dart';
+import 'package:nike/features/shipping/domain/usecases/get_checkout_usecase.dart';
+import 'package:nike/features/shipping/presentation/bloc/checkout_bloc.dart';
 import 'package:nike/features/shipping/presentation/bloc/shipping_bloc.dart';
 
 final sl = GetIt.instance;
@@ -72,6 +74,7 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<GetCartCountItemUseCase>(() => GetCartCountItemUseCase(sl()));
 
   sl.registerLazySingleton<CreateOrderUseCase>(() => CreateOrderUseCase(sl()));
+  sl.registerLazySingleton<GetCheckoutUseCase>(() => GetCheckoutUseCase(sl()));
 
   // bloc
   sl.registerFactory<HomeBloc>(() => HomeBloc(sl(), sl()));
@@ -80,4 +83,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<ProductBloc>(() => ProductBloc(sl(), sl()));
   sl.registerFactory<CartBloc>(() => CartBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory<ShippingBloc>(() => ShippingBloc(sl()));
+  sl.registerFactory<CheckoutBloc>(() => CheckoutBloc(sl()));
 }

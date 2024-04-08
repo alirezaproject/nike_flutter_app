@@ -23,4 +23,6 @@ class OrderApiSerivce {
         'address': params.address,
         'payment_method': params.paymenyMethod == PaymentMethod.online ? 'online' : 'cash_on_delivery',
       });
+
+  Future<dynamic> getPayment(int orderId) async => await dio.get('/order/checkout?order_id=$orderId');
 }

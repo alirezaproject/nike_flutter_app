@@ -8,5 +8,6 @@ class CreateOrderUseCase extends UseCase<OrderEntity, CreateOrderParams> {
 
   CreateOrderUseCase(this._orderRepository);
   @override
-  Future<OrderEntity> call(CreateOrderParams params) async => await _orderRepository.create(params);
+  Future<OrderEntity> call(CreateOrderParams params) async =>
+      await _orderRepository.create(params);
 }
