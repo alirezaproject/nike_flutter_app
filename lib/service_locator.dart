@@ -21,6 +21,7 @@ import 'package:nike/features/cart/domain/usecases/get_cart_count_item_usecase.d
 import 'package:nike/features/cart/domain/usecases/get_cart_list_usecase.dart';
 import 'package:nike/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:nike/features/home/presentation/bloc/home_bloc.dart';
+import 'package:nike/features/product/data/data_source/local/favorite_manager.dart';
 import 'package:nike/features/product/data/data_source/remote/comment_api_service.dart';
 import 'package:nike/features/product/data/data_source/remote/product_api_service.dart';
 import 'package:nike/features/product/data/repository/comment_repository.dart';
@@ -52,6 +53,9 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<AuthApiService>(() => AuthApiService());
   sl.registerLazySingleton<CartApiService>(() => CartApiService());
   sl.registerLazySingleton<OrderApiSerivce>(() => OrderApiSerivce());
+
+  // local services
+  sl.registerLazySingleton<FavoriteManager>(() => FavoriteManager());
 
   // Repositories
   sl.registerLazySingleton<IProductRepository>(() => ProductRepository(sl()));

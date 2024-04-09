@@ -10,15 +10,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepository with HttpValidator implements IAuthRepository {
   final AuthApiService _authApiService;
-  static final ValueNotifier<AuthModel?> authChangeNotifier =
-      ValueNotifier(null);
+  static final ValueNotifier<AuthModel?> authChangeNotifier = ValueNotifier(null);
   AuthRepository(this._authApiService);
   @override
   Future<AuthModel> login(AuthParams params) async {
     Response response = await _authApiService.login(params);
     validateResponse(response);
 
-    final model = AuthModel.fromJson(response.data);
+    final data = AuthModel.fromJson(response.data);
+    final model = AuthModel(accessToken: data.accessToken, refreshToken: data.refreshToken, email: params.username);
     _setAuthToken(model);
     return model;
   }
@@ -33,8 +33,7 @@ class AuthRepository with HttpValidator implements IAuthRepository {
   @override
   Future<void> refreshToken() async {
     if (authChangeNotifier.value != null) {
-      Response response = await _authApiService
-          .refreshToken(authChangeNotifier.value!.refreshToken);
+      Response response = await _authApiService.refreshToken(authChangeNotifier.value!.refreshToken);
       validateResponse(response);
       final model = AuthModel.fromJson(response.data);
       debugPrint('refresh token is : ${model.refreshToken}');
@@ -43,32 +42,32 @@ class AuthRepository with HttpValidator implements IAuthRepository {
   }
 
   Future _setAuthToken(AuthModel authModel) async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString('access_token', authModel.accessToken);
     sharedPreferences.setString('refresh_token', authModel.refreshToken);
+    sharedPreferences.setString('email', authModel.email);
     getAuthToken();
   }
 
   Future getAuthToken() async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
-    final String accessToken =
-        sharedPreferences.getString('access_token') ?? '';
-    final String refreshToken =
-        sharedPreferences.getString('refresh_token') ?? '';
+    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final String accessToken = sharedPreferences.getString('access_token') ?? '';
+    final String refreshToken = sharedPreferences.getString('refresh_token') ?? '';
+
+    final String email = sharedPreferences.getString('email') ?? '';
+
     if (accessToken.isNotEmpty && refreshToken.isNotEmpty) {
       authChangeNotifier.value = AuthModel(
         accessToken: accessToken,
         refreshToken: refreshToken,
+        email: email,
       );
     }
   }
 
   @override
   Future<void> signOut() async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.clear();
     authChangeNotifier.value = null;
   }
