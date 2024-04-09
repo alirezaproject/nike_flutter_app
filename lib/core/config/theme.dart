@@ -21,17 +21,22 @@ class AppTheme {
     color: _lightPrimaryTextColor,
   );
 
-  static final TextStyle _lightDisplayLarge = defaultTextStyle.copyWith(fontWeight: FontWeight.bold);
+  static final TextStyle _lightDisplayLarge =
+      defaultTextStyle.copyWith(fontWeight: FontWeight.bold);
 
-  static final TextStyle _lightTitleLarge = defaultTextStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 18);
-  static final TextStyle _lightTitleMedium = defaultTextStyle.copyWith(color: _lightSecondaryTextColor);
+  static final TextStyle _lightTitleLarge =
+      defaultTextStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 18);
+  static final TextStyle _lightTitleMedium =
+      defaultTextStyle.copyWith(color: _lightSecondaryTextColor);
 
   static final TextStyle _lightBodyLarge = defaultTextStyle.copyWith();
   static final TextStyle _lightBodyMedium = defaultTextStyle.copyWith();
-  static final TextStyle _lightBodySmall = defaultTextStyle.copyWith(color: _lightSecondaryTextColor);
+  static final TextStyle _lightBodySmall =
+      defaultTextStyle.copyWith(color: _lightSecondaryTextColor);
 
   static final TextStyle _lightLabelSmall = defaultTextStyle.copyWith();
-  static final TextStyle _lightLabelMedium = defaultTextStyle.copyWith(color: _lightPrimaryColor);
+  static final TextStyle _lightLabelMedium =
+      defaultTextStyle.copyWith(color: _lightPrimaryColor);
 
   static final TextTheme _lightTextTheme = TextTheme(
     displayLarge: _lightDisplayLarge,
@@ -60,7 +65,8 @@ class AppTheme {
       hintColor: _lightSecondaryTextColor,
       inputDecorationTheme: InputDecorationTheme(
         border: const OutlineInputBorder(),
-        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: _lightPrimaryColor.withOpacity(0.1))),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: _lightPrimaryColor.withOpacity(0.1))),
       ),
       snackBarTheme: SnackBarThemeData(
         contentTextStyle: defaultTextStyle.copyWith(color: Colors.white),

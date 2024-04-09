@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nike/core/extensions/price_label.dart';
-import 'package:nike/features/shipping/presentation/bloc/checkout_bloc.dart';
+import 'package:nike/features/shipping/presentation/bloc/checkout/checkout_bloc.dart';
 import 'package:nike/service_locator.dart';
 
 class ReceiptScreen extends StatelessWidget {

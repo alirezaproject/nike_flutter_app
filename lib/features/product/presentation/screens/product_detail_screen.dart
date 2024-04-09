@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nike/core/extensions/price_label.dart';
 import 'package:nike/core/utils/constants.dart';
 import 'package:nike/core/widgets/image.dart';
+import 'package:nike/features/product/presentation/widgets/insert_comment_dialog.dart';
 import 'package:nike/service_locator.dart';
 import 'package:nike/features/product/domain/entities/product_entity.dart';
 import 'package:nike/features/product/presentation/bloc/product/product_bloc.dart';
@@ -29,6 +30,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldMessengerState> scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+
     final theme = Theme.of(context);
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -59,8 +62,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               builder: (context, state) {
                 return FloatingActionButton.extended(
                   onPressed: () {
-                    BlocProvider.of<ProductBloc>(context)
-                        .add(AddCartButtonClick(productId: widget.product.id!));
+                    BlocProvider.of<ProductBloc>(context).add(AddCartButtonClick(productId: widget.product.id!));
                   },
                   label: (state is ProductAddToCartButtonLoading)
                       ? CupertinoActivityIndicator(
@@ -74,16 +76,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               },
             ),
           ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
           body: CustomScrollView(
             physics: Constants.defaultScrollPhysics,
             slivers: [
               SliverAppBar(
                 expandedHeight: MediaQuery.of(context).size.width * 0.8,
-                flexibleSpace: LoadImage(
-                    image: widget.product.image!,
-                    borderRadius: BorderRadius.zero),
+                flexibleSpace: LoadImage(image: widget.product.image!, borderRadius: BorderRadius.zero),
                 actions: [
                   IconButton(
                     onPressed: () {},
@@ -135,7 +134,23 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             style: theme.textTheme.titleMedium,
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              showModalBottomSheet(
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(16),
+                                  ),
+                                ),
+                                context: context,
+                                useRootNavigator: true,
+                                builder: (context) {
+                                  return InsertCommentDialog(
+                                    productId: widget.product.id!,
+                                    scaffoldMessengerState: scaffoldKey.currentState,
+                                  );
+                                },
+                              );
+                            },
                             child: const Text('ثبت نظر'),
                           ),
                         ],

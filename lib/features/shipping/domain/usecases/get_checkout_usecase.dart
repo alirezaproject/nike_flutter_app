@@ -7,5 +7,6 @@ class GetCheckoutUseCase extends UseCase<CheckoutEntity, int> {
 
   GetCheckoutUseCase(this._orderRepository);
   @override
-  Future<CheckoutEntity> call(int params) async => await _orderRepository.get(params);
+  Future<CheckoutEntity> call(int params) async =>
+      await _orderRepository.get(params);
 }

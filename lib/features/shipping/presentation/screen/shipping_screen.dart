@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nike/core/params/create_order_params.dart';
 import 'package:nike/features/cart/presentation/widgets/price_info.dart';
-import 'package:nike/features/shipping/presentation/bloc/shipping_bloc.dart';
+import 'package:nike/features/shipping/presentation/bloc/shipping/shipping_bloc.dart';
 import 'package:nike/features/shipping/presentation/screen/payment_webview.dart';
 import 'package:nike/features/shipping/presentation/screen/receipt.dart';
 import 'package:nike/service_locator.dart';

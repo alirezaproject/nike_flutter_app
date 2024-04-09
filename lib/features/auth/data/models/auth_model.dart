@@ -10,8 +10,10 @@ class AuthModel {
     required this.email,
   });
 
-  factory AuthModel.fromJson(Map<String, dynamic> json) =>
-      AuthModel(accessToken: json['access_token'] as String, refreshToken: json['refresh_token'] as String, email: '');
+  factory AuthModel.fromJson(Map<String, dynamic> json) => AuthModel(
+      accessToken: json['access_token'] as String,
+      refreshToken: json['refresh_token'] as String,
+      email: '');
 
   Map<String, dynamic> toJson() => {
         'access_token': accessToken,

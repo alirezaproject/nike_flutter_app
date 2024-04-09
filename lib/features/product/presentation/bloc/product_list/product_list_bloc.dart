@@ -14,7 +14,10 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
       try {
         emit(ProductListLoading());
         final products = await _getProductListUseCase(event.sort);
-        emit(ProductListLoaded(products: products.data!, sort: event.sort, sortNames: ProductSort.names));
+        emit(ProductListLoaded(
+            products: products.data!,
+            sort: event.sort,
+            sortNames: ProductSort.names));
       } catch (e) {
         emit(ProductListError(AppException()));
       }

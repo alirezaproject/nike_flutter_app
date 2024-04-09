@@ -36,7 +36,8 @@ class _RootScreenState extends State<RootScreen> {
   };
 
   Future<bool> _onWillPop() async {
-    final NavigatorState currentSelectedTabNavigatorState = map[selectedScreenIndex]!.currentState!;
+    final NavigatorState currentSelectedTabNavigatorState =
+        map[selectedScreenIndex]!.currentState!;
     if (currentSelectedTabNavigatorState.canPop()) {
       currentSelectedTabNavigatorState.pop();
       return false;
@@ -69,7 +70,8 @@ class _RootScreenState extends State<RootScreen> {
           ),
           bottomNavigationBar: BottomNavigationBar(
             items: [
-              const BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: 'خانه'),
+              const BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.home), label: 'خانه'),
               BottomNavigationBarItem(
                   icon: Stack(
                     clipBehavior: Clip.none,
@@ -89,7 +91,8 @@ class _RootScreenState extends State<RootScreen> {
                     ],
                   ),
                   label: 'سبد خرید'),
-              const BottomNavigationBarItem(icon: Icon(CupertinoIcons.person), label: 'پروفایل'),
+              const BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.person), label: 'پروفایل'),
             ],
             currentIndex: selectedScreenIndex,
             onTap: (selectedIndex) {
@@ -110,7 +113,9 @@ class _RootScreenState extends State<RootScreen> {
         ? Container()
         : Navigator(
             key: key,
-            onGenerateRoute: (settings) => MaterialPageRoute(builder: (context) => Offstage(offstage: selectedScreenIndex != index, child: child)));
+            onGenerateRoute: (settings) => MaterialPageRoute(
+                builder: (context) => Offstage(
+                    offstage: selectedScreenIndex != index, child: child)));
   }
 
   @override

@@ -26,3 +26,17 @@ class CommentCompleted extends CommentState {
   @override
   List<Object> get props => [comments];
 }
+
+class InsertCommentError extends CommentState {
+  final AppException exception;
+
+  const InsertCommentError(this.exception);
+}
+
+class InsertCommentLoading extends CommentState {}
+
+class InsertCommentCompleted extends CommentState {
+  final CommentEntity comment;
+
+  const InsertCommentCompleted(this.comment);
+}

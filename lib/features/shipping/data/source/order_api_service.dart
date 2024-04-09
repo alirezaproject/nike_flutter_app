@@ -25,4 +25,6 @@ class OrderApiSerivce {
       });
 
   Future<dynamic> getPayment(int orderId) async => await dio.get('/order/checkout?order_id=$orderId');
+
+  Future<dynamic> getOrders() async => await dio.get('/order/list');
 }

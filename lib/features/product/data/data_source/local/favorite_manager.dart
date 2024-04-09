@@ -8,10 +8,12 @@ class FavoriteManager {
 
   final _box = Hive.box<ProductEntity>(_boxName);
 
-  static ValueListenable<Box<ProductEntity>> get listenable => Hive.box<ProductEntity>(_boxName).listenable();
+  static ValueListenable<Box<ProductEntity>> get listenable =>
+      Hive.box<ProductEntity>(_boxName).listenable();
 
   static init() async {
-    var appDocumentDirectory = await path_provider.getApplicationDocumentsDirectory();
+    var appDocumentDirectory =
+        await path_provider.getApplicationDocumentsDirectory();
     var customPath = '${appDocumentDirectory.path}/hive_data';
     Hive.init(customPath);
     Hive.registerAdapter(ProductEntityAdapter());

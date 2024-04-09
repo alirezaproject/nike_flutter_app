@@ -20,7 +20,8 @@ class PaymentGatewayScreen extends StatelessWidget {
             final uri = Uri.parse(url);
             debugPrint(uri.host);
             debugPrint(uri.pathSegments[0]);
-            if (uri.pathSegments.contains('appCheckout') && uri.host == 'expertdevelopers.ir') {
+            if (uri.pathSegments.contains('appCheckout') &&
+                uri.host == 'expertdevelopers.ir') {
               final orderId = int.parse(uri.queryParameters["order_id"]!);
               Navigator.of(context).pop();
               Navigator.of(context).push(MaterialPageRoute(

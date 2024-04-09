@@ -30,6 +30,7 @@ import 'package:nike/features/product/domain/repository/comment_repository.dart'
 import 'package:nike/features/product/domain/repository/product_repository.dart';
 import 'package:nike/features/product/domain/use_cases/get_comment_list_usecase.dart';
 import 'package:nike/features/product/domain/use_cases/get_product_list_usecase.dart';
+import 'package:nike/features/product/domain/use_cases/insert_comment_usecase.dart';
 import 'package:nike/features/product/presentation/bloc/comment/comment_bloc.dart';
 import 'package:nike/features/product/presentation/bloc/product/product_bloc.dart';
 import 'package:nike/features/product/presentation/bloc/product_list/product_list_bloc.dart';
@@ -38,8 +39,10 @@ import 'package:nike/features/shipping/data/source/order_api_service.dart';
 import 'package:nike/features/shipping/domain/repos/order_repository.dart';
 import 'package:nike/features/shipping/domain/usecases/create_order_usecase.dart';
 import 'package:nike/features/shipping/domain/usecases/get_checkout_usecase.dart';
-import 'package:nike/features/shipping/presentation/bloc/checkout_bloc.dart';
-import 'package:nike/features/shipping/presentation/bloc/shipping_bloc.dart';
+import 'package:nike/features/shipping/domain/usecases/get_order_history_usecase.dart';
+import 'package:nike/features/shipping/presentation/bloc/checkout/checkout_bloc.dart';
+import 'package:nike/features/shipping/presentation/bloc/order_history/order_history_bloc.dart';
+import 'package:nike/features/shipping/presentation/bloc/shipping/shipping_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -77,17 +80,19 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<DeleteCartItemUseCase>(() => DeleteCartItemUseCase(sl()));
   sl.registerLazySingleton<CartChangeCountUseCase>(() => CartChangeCountUseCase(sl()));
   sl.registerLazySingleton<GetCartCountItemUseCase>(() => GetCartCountItemUseCase(sl()));
-
+  sl.registerLazySingleton<GetOrderHistoryUseCase>(() => GetOrderHistoryUseCase(sl()));
   sl.registerLazySingleton<CreateOrderUseCase>(() => CreateOrderUseCase(sl()));
   sl.registerLazySingleton<GetCheckoutUseCase>(() => GetCheckoutUseCase(sl()));
+  sl.registerLazySingleton<InsertCommentUseCase>(() => InsertCommentUseCase(sl()));
 
   // bloc
   sl.registerFactory<HomeBloc>(() => HomeBloc(sl(), sl()));
-  sl.registerFactory<CommentBloc>(() => CommentBloc(sl()));
+  sl.registerFactory<CommentBloc>(() => CommentBloc(sl(), sl()));
   sl.registerFactory<AuthBloc>(() => AuthBloc(true, sl(), sl(), sl()));
   sl.registerFactory<ProductBloc>(() => ProductBloc(sl(), sl()));
   sl.registerFactory<CartBloc>(() => CartBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory<ShippingBloc>(() => ShippingBloc(sl()));
   sl.registerFactory<CheckoutBloc>(() => CheckoutBloc(sl()));
   sl.registerFactory<ProductListBloc>(() => ProductListBloc(sl()));
+  sl.registerFactory<OrderHistoryBloc>(() => OrderHistoryBloc(sl()));
 }

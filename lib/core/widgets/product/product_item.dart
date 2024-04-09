@@ -70,10 +70,13 @@ class _ProductItemState extends State<ProductItem> {
                       child: Container(
                         width: 32,
                         height: 32,
-                        decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.white),
                         alignment: Alignment.center,
                         child: Icon(
-                          favorite.isFavorite(widget.product) ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
+                          favorite.isFavorite(widget.product)
+                              ? CupertinoIcons.heart_fill
+                              : CupertinoIcons.heart,
                           size: 20,
                         ),
                       ),
@@ -86,13 +89,15 @@ class _ProductItemState extends State<ProductItem> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(widget.product.title!, overflow: TextOverflow.ellipsis, maxLines: 1),
+                child: Text(widget.product.title!,
+                    overflow: TextOverflow.ellipsis, maxLines: 1),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0, left: 8),
                 child: Text(
                   widget.product.previousPrice!.withPriceLabel,
-                  style: widget.theme.textTheme.bodySmall!.copyWith(decoration: TextDecoration.lineThrough),
+                  style: widget.theme.textTheme.bodySmall!
+                      .copyWith(decoration: TextDecoration.lineThrough),
                 ),
               ),
               Padding(

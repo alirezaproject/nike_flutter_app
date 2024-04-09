@@ -71,4 +71,8 @@ class AuthRepository with HttpValidator implements IAuthRepository {
     sharedPreferences.clear();
     authChangeNotifier.value = null;
   }
+
+  static bool isUserLoggedIn() {
+    return authChangeNotifier.value != null && authChangeNotifier.value!.accessToken.isNotEmpty;
+  }
 }

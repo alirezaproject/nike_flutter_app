@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:nike/core/extensions/price_label.dart';
 import 'package:nike/core/widgets/image.dart';
@@ -31,7 +30,8 @@ class FavoriteScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => ProductDetailScreen(product: product),
+                      builder: (context) =>
+                          ProductDetailScreen(product: product),
                     ),
                   );
                 },
@@ -59,7 +59,8 @@ class FavoriteScreen extends StatelessWidget {
                             children: [
                               Text(
                                 product.title!,
-                                style: theme.textTheme.titleMedium!.apply(color: theme.colorScheme.primary),
+                                style: theme.textTheme.titleMedium!
+                                    .apply(color: theme.colorScheme.primary),
                               ),
                               const SizedBox(
                                 height: 24,

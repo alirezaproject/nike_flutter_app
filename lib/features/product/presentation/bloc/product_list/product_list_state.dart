@@ -16,7 +16,8 @@ class ProductListLoaded extends ProductListState {
   final int sort;
   final List<String> sortNames;
 
-  const ProductListLoaded({required this.products, required this.sort, required this.sortNames});
+  const ProductListLoaded(
+      {required this.products, required this.sort, required this.sortNames});
 
   @override
   List<Object> get props => [products, sort];

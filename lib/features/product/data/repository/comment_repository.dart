@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:nike/core/params/insert_comment_params.dart';
 import 'package:nike/core/utils/error_handler.dart';
 import 'package:nike/core/utils/http_validator.dart';
 import 'package:nike/features/product/data/data_source/remote/comment_api_service.dart';
@@ -13,13 +14,10 @@ class CommentRepository with HttpValidator implements ICommentRepository {
   @override
   Future<List<CommentEntity>> fetchComments(int productId) async {
     try {
-      Response response =
-          await _commentApiService.getCommentsByProductId(productId);
+      Response response = await _commentApiService.getCommentsByProductId(productId);
       validateResponse(response);
 
-      List<CommentEntity> comments = (response.data as List)
-          .map((json) => CommentModel.fromJson(json))
-          .map((e) {
+      List<CommentEntity> comments = (response.data as List).map((json) => CommentModel.fromJson(json)).map((e) {
         return CommentEntity(
           id: e.id,
           title: e.title,
@@ -32,5 +30,12 @@ class CommentRepository with HttpValidator implements ICommentRepository {
     } catch (e) {
       throw AppException();
     }
+  }
+
+  @override
+  Future<CommentEntity> insert(InsertCommentParams params) async {
+    Response response = await _commentApiService.addComment(params);
+    validateResponse(response);
+    return CommentModel.fromJson(response.data);
   }
 }

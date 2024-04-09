@@ -51,7 +51,8 @@ class HomeScreen extends StatelessWidget {
                             title: 'جدید ترین',
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const ProductListScreen(sort: ProductSort.latest),
+                                builder: (context) => const ProductListScreen(
+                                    sort: ProductSort.latest),
                               ));
                             },
                             products: state.latestProducts,
@@ -63,7 +64,8 @@ class HomeScreen extends StatelessWidget {
                             title: 'پربازدید ترین',
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const ProductListScreen(sort: ProductSort.popular),
+                                builder: (context) => const ProductListScreen(
+                                    sort: ProductSort.popular),
                               ));
                             },
                             products: state.popularProducts,
@@ -85,7 +87,8 @@ class HomeScreen extends StatelessWidget {
               if (state is HomeError) {
                 return AppErrorWidget(
                   exception: state.exception,
-                  onTap: () => BlocProvider.of<HomeBloc>(context).add(RefreshHomeEvent()),
+                  onTap: () => BlocProvider.of<HomeBloc>(context)
+                      .add(RefreshHomeEvent()),
                 );
               }
               return const SizedBox();
