@@ -31,6 +31,7 @@ import 'package:nike/features/product/domain/repository/product_repository.dart'
 import 'package:nike/features/product/domain/use_cases/get_comment_list_usecase.dart';
 import 'package:nike/features/product/domain/use_cases/get_product_list_usecase.dart';
 import 'package:nike/features/product/domain/use_cases/insert_comment_usecase.dart';
+import 'package:nike/features/product/domain/use_cases/search_product_list_usecase.dart';
 import 'package:nike/features/product/presentation/bloc/comment/comment_bloc.dart';
 import 'package:nike/features/product/presentation/bloc/product/product_bloc.dart';
 import 'package:nike/features/product/presentation/bloc/product_list/product_list_bloc.dart';
@@ -84,6 +85,7 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<CreateOrderUseCase>(() => CreateOrderUseCase(sl()));
   sl.registerLazySingleton<GetCheckoutUseCase>(() => GetCheckoutUseCase(sl()));
   sl.registerLazySingleton<InsertCommentUseCase>(() => InsertCommentUseCase(sl()));
+  sl.registerLazySingleton<SearchProductListUseCase>(() => SearchProductListUseCase(sl()));
 
   // bloc
   sl.registerFactory<HomeBloc>(() => HomeBloc(sl(), sl()));
@@ -93,6 +95,6 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<CartBloc>(() => CartBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory<ShippingBloc>(() => ShippingBloc(sl()));
   sl.registerFactory<CheckoutBloc>(() => CheckoutBloc(sl()));
-  sl.registerFactory<ProductListBloc>(() => ProductListBloc(sl()));
+  sl.registerFactory<ProductListBloc>(() => ProductListBloc(sl(), sl()));
   sl.registerFactory<OrderHistoryBloc>(() => OrderHistoryBloc(sl()));
 }

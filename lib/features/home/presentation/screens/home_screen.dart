@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nike/core/utils/constants.dart';
@@ -11,7 +12,8 @@ import 'package:nike/features/home/presentation/widgets/app_bar.dart';
 import 'package:nike/features/home/presentation/widgets/banner_slider.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final TextEditingController _searchController = TextEditingController();
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,34 @@ class HomeScreen extends StatelessWidget {
                         }
                       case 1:
                         {
-                          break;
+                          return Container(
+                            height: 56,
+                            margin: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+                            child: TextField(
+                              controller: _searchController,
+                              decoration: InputDecoration(
+                                label: const Text('جستجو'),
+                                isCollapsed: false,
+                                prefixIcon: IconButton(
+                                  onPressed: () {
+                                    _search(context);
+                                  },
+                                  icon: const Icon(CupertinoIcons.search),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(28),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(28),
+                                ),
+                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                              ),
+                              textInputAction: TextInputAction.search,
+                              onSubmitted: (value) {
+                                _search(context);
+                              },
+                            ),
+                          );
                         }
                       case 2:
                         {
@@ -51,8 +80,7 @@ class HomeScreen extends StatelessWidget {
                             title: 'جدید ترین',
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const ProductListScreen(
-                                    sort: ProductSort.latest),
+                                builder: (context) => const ProductListScreen(sort: ProductSort.latest),
                               ));
                             },
                             products: state.latestProducts,
@@ -64,8 +92,7 @@ class HomeScreen extends StatelessWidget {
                             title: 'پربازدید ترین',
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const ProductListScreen(
-                                    sort: ProductSort.popular),
+                                builder: (context) => const ProductListScreen(sort: ProductSort.popular),
                               ));
                             },
                             products: state.popularProducts,
@@ -87,8 +114,7 @@ class HomeScreen extends StatelessWidget {
               if (state is HomeError) {
                 return AppErrorWidget(
                   exception: state.exception,
-                  onTap: () => BlocProvider.of<HomeBloc>(context)
-                      .add(RefreshHomeEvent()),
+                  onTap: () => BlocProvider.of<HomeBloc>(context).add(RefreshHomeEvent()),
                 );
               }
               return const SizedBox();
@@ -97,5 +123,13 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _search(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => ProductListScreen.search(
+        seachTerm: _searchController.text,
+      ),
+    ));
   }
 }

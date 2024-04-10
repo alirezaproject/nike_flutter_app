@@ -17,9 +17,7 @@ class ProductRepository with HttpValidator implements IProductRepository {
       Response response = await _productApiService.getProductList(sort);
       validateResponse(response);
 
-      List<ProductEntity> productEntity = (response.data as List)
-          .map((json) => ProductModel.fromJson(json))
-          .map((productModel) {
+      List<ProductEntity> productEntity = (response.data as List).map((json) => ProductModel.fromJson(json)).map((productModel) {
         return ProductEntity(
           id: productModel.id,
           title: productModel.title,
